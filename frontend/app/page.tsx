@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar } from "../components/Navbar";
 import { LandingHero } from "../components/LandingHero";
 import { NeedQuestions } from "../components/NeedQuestions";
@@ -19,11 +19,33 @@ export default function Home() {
     "landing" | "questions" | "upload" | "analysis" | "comparison"
   >("landing");
 
+  // Theme Management (Light / Black Dark Theme)
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    // Check saved theme or system preference
+    const savedTheme = localStorage.getItem("policylens_theme") as "light" | "dark" | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle("dark", savedTheme === "dark");
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setTheme("dark");
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
+  const handleToggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    localStorage.setItem("policylens_theme", nextTheme);
+    document.documentElement.classList.toggle("dark", nextTheme === "dark");
+  };
+
   // User Profile from Screen 2
   const [userProfile, setUserProfile] = useState<UserProfile>({
     customer_type: "Myself",
     priorities: ["Coverage", "Waiting Period"],
-    budget: "₹5,00,0–₹10,000",
+    budget: "₹5,000–₹10,000",
   });
 
   // Staged files or policy IDs
@@ -131,7 +153,6 @@ export default function Home() {
     if (compareData) {
       setCurrentStep("comparison");
     } else {
-      // In case network was slightly slower, fetch demo fallback
       fetchDemoData().then((res) => {
         setCompareData(res);
         setCurrentStep("comparison");
@@ -167,12 +188,14 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
-      {/* Top Navigation */}
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900 selection:text-blue-900 dark:selection:text-blue-100 transition-colors duration-200">
+      {/* Top Navigation with Theme Switcher */}
       <Navbar
         currentStep={currentStep}
         onReset={handleReset}
         onOpenDemo={handleTriggerDemo}
+        theme={theme}
+        onToggleTheme={handleToggleTheme}
       />
 
       {/* Main Container Views */}
@@ -266,12 +289,12 @@ export default function Home() {
       )}
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+      <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-6 text-center text-xs text-slate-500 dark:text-slate-400 transition-colors">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p>
-            © {new Date().getFullYear()} <strong>PolicyLens AI</strong> — Hackathon Prototype.
+            © {new Date().getFullYear()} <strong className="text-slate-700 dark:text-slate-200">PolicyLens AI</strong> — Hackathon Prototype.
           </p>
-          <p className="text-slate-400">
+          <p className="text-slate-400 dark:text-slate-500">
             Educational comparison tool — not insurance advice, a quotation, or a licensed insurance sale.
           </p>
         </div>

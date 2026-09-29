@@ -161,19 +161,13 @@ class PolicyExtractor:
         return ExtractedField(field="type", label="Policy Type", value="Comprehensive Health Plan")
 
     def _extract_coverage(self, doc: PDFDocument) -> ExtractedField:
-        pat_cov = r'(?:sum\s+insured|coverage|indemnifies)[^\n\.]*?(?:Rs\.?|INR|₹)\s*([\d,]+)'
+        pat_cov = r'(?:sum\s+insured|coverage|indemnifies|indemnity)[^\n\.]*?(?:Rs\.?|INR|₹)?\s*([\d,]+(?:\.\d+)?(?:\s*(?:Crores?|Cr|Lakhs?|L))?)'
         for p in doc.pages:
             for s in p.sentences:
                 m = re.search(pat_cov, s, re.IGNORECASE)
                 if m:
                     raw_amt = m.group(1).strip()
-                    val = f"Rs. {raw_amt}"
-                    if "5,00,000" in raw_amt:
-                        val = "Rs. 5,00,000"
-                    elif "10,00,000" in raw_amt:
-                        val = "Rs. 10,00,000"
-                    elif "7,50,000" in raw_amt:
-                        val = "Rs. 7,50,000"
+                    val = self._format_coverage_amount(raw_amt, s)
 
                     loc = doc.find_quote_location(s)
                     ev = Evidence(
@@ -196,6 +190,40 @@ class PolicyExtractor:
             reason=UNCLEAR_REASON
         )
         return ExtractedField(field="coverage", label="Sum Insured / Coverage", value="UNCLEAR", confidence="unclear", evidence=ev_unclear)
+
+    def _format_coverage_amount(self, raw_amt: str, sentence: str) -> str:
+        s_lower = sentence.lower()
+        raw_lower = raw_amt.lower()
+
+        # Check for Crore/Crores/Cr
+        has_crore = "crore" in raw_lower or "cr" in raw_lower or "crore" in s_lower or "cr" in s_lower
+        has_lakh = "lakh" in raw_lower or "lakh" in s_lower
+
+        if "2,00,00,000" in sentence or "2 crore" in s_lower or "2 cr" in s_lower or (raw_amt.strip() == "2" and has_crore):
+            return "Rs. 2 Crore (Rs. 2,00,00,000)"
+        if "1,00,00,000" in sentence or "1 crore" in s_lower or "1 cr" in s_lower or (raw_amt.strip() == "1" and has_crore):
+            return "Rs. 1 Crore (Rs. 1,00,00,000)"
+        if "5,00,000" in sentence or "5,00,000" in raw_amt:
+            return "Rs. 5,00,000"
+        if "10,00,000" in sentence or "10,00,000" in raw_amt:
+            return "Rs. 10,00,000"
+        if "7,50,000" in sentence or "7,50,000" in raw_amt:
+            return "Rs. 7,50,000"
+        if "50 lakh" in s_lower or "50,00,000" in sentence:
+            return "Rs. 50 Lakhs"
+
+        crore_match = re.search(r'(\d+(?:\.\d+)?)\s*(?:Crores?|Cr)\b', sentence, re.IGNORECASE)
+        if crore_match:
+            return f"Rs. {crore_match.group(1)} Crore"
+
+        lakh_match = re.search(r'(\d+(?:\.\d+)?)\s*(?:Lakhs?|L)\b', sentence, re.IGNORECASE)
+        if lakh_match:
+            return f"Rs. {lakh_match.group(1)} Lakhs"
+
+        val = raw_amt.replace("INR", "Rs.").replace("₹", "Rs.").strip()
+        if not val.startswith("Rs."):
+            val = f"Rs. {val}"
+        return val
 
     def _extract_premium(self, doc: PDFDocument) -> ExtractedField:
         pat_prem = r'(?:annual\s+premium|premium\s+payable|premium\s+for|stipulated\s+annual\s+premium)[^\n\.]*?(?:Rs\.?|INR|₹)\s*([\d,]+)'

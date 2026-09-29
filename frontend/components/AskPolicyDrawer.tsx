@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { PolicyExtraction, AskResponse } from "../types";
-import { X, Send, Sparkles, MessageSquare, AlertTriangle, CheckCircle2, BookOpen, Loader2 } from "lucide-react";
+import { X, Send, MessageSquare, AlertTriangle, CheckCircle2, BookOpen, Loader2 } from "lucide-react";
 import { askPolicyQuestion } from "../lib/api";
 
 interface AskPolicyDrawerProps {
@@ -98,29 +98,29 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
   };
 
   return (
-    <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white border-l border-slate-200 shadow-2xl flex flex-col animate-in slide-in-from-right duration-200">
+    <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col animate-in slide-in-from-right duration-200">
       {/* Drawer Header */}
-      <div className="px-5 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+      <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 flex items-center justify-center">
             <MessageSquare className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="font-bold text-sm text-slate-900">Ask PolicyLens AI</h3>
-            <p className="text-[11px] text-slate-500">Grounded policy Q&amp;A with citations</p>
+            <h3 className="font-extrabold text-sm text-slate-900 dark:text-white">Ask PolicyLens AI</h3>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">Grounded policy Q&amp;A with citations</p>
           </div>
         </div>
         <button
           onClick={onClose}
-          className="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-200 transition"
+          className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition"
         >
           <X className="w-5 h-5" />
         </button>
       </div>
 
       {/* Policy Selector Pills */}
-      <div className="px-4 py-3 border-b border-slate-100 bg-white">
-        <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2">
+      <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
+        <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
           Target Document
         </div>
         <div className="flex items-center gap-2 overflow-x-auto pb-1">
@@ -130,15 +130,15 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
               <button
                 key={p.id}
                 onClick={() => setSelectedPolicyId(p.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition flex items-center gap-1.5 ${
                   isSelected
                     ? "bg-blue-600 text-white shadow-xs"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
               >
                 <span>{p.name.split(" ")[0]}</span>
                 {p.waiting_period === "UNCLEAR" && (
-                  <span className="text-[9px] bg-amber-400 text-slate-900 font-bold px-1 rounded">
+                  <span className="text-[9px] bg-amber-400 text-slate-950 font-black px-1 rounded">
                     UNCLEAR
                   </span>
                 )}
@@ -149,7 +149,7 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
       </div>
 
       {/* Chat Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/50">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/50 dark:bg-slate-950/60">
         {messages.map((m) => {
           const isUser = m.sender === "user";
           return (
@@ -160,33 +160,33 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
               <div
                 className={`max-w-[88%] p-3.5 rounded-2xl text-xs leading-relaxed ${
                   isUser
-                    ? "bg-blue-600 text-white rounded-br-xs"
-                    : "bg-white text-slate-900 border border-slate-200 rounded-bl-xs shadow-2xs"
+                    ? "bg-blue-600 text-white rounded-br-xs font-medium"
+                    : "bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-800 rounded-bl-xs shadow-2xs"
                 }`}
               >
                 <p>{m.text}</p>
 
                 {/* Evidence Callout if AI answered with citation */}
                 {!isUser && m.evidenceQuote && (
-                  <div className="mt-3 pt-2.5 border-t border-slate-100 text-[11px]">
-                    <div className="flex items-center justify-between text-slate-500 mb-1">
-                      <span className="font-bold flex items-center gap-1 text-emerald-700">
+                  <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 text-[11px]">
+                    <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 mb-1">
+                      <span className="font-bold flex items-center gap-1 text-emerald-700 dark:text-emerald-400">
                         <CheckCircle2 className="w-3 h-3" />
                         Source Evidence:
                       </span>
                       {m.page && (
-                        <span className="font-semibold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded">
+                        <span className="font-extrabold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950 px-1.5 py-0.5 rounded">
                           Page {m.page}
                         </span>
                       )}
                     </div>
-                    <blockquote className="italic bg-slate-50 p-2 rounded-md border border-slate-200 text-slate-800">
+                    <blockquote className="italic bg-slate-50 dark:bg-slate-950 p-2 rounded-md border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 leading-relaxed font-normal">
                       &ldquo;{m.evidenceQuote}&rdquo;
                     </blockquote>
                     {m.page && (
                       <button
                         onClick={() => onOpenPdf(m.policyId, m.page || 1)}
-                        className="mt-2 text-blue-600 hover:text-blue-800 text-[10px] font-semibold flex items-center gap-1"
+                        className="mt-2 text-blue-600 dark:text-blue-400 hover:underline text-[10px] font-bold flex items-center gap-1"
                       >
                         <BookOpen className="w-3 h-3" />
                         <span>Inspect in PDF</span>
@@ -197,8 +197,8 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
 
                 {/* Warning if clause not found */}
                 {!isUser && m.found === false && (
-                  <div className="mt-2.5 p-2 rounded-md bg-amber-50 border border-amber-200 text-amber-900 text-[11px] flex items-start gap-1.5">
-                    <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
+                  <div className="mt-2.5 p-2 rounded-md bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/80 text-amber-900 dark:text-amber-200 text-[11px] flex items-start gap-1.5 font-medium">
+                    <AlertTriangle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                     <span>No guessed terms. PolicyLens strictly refuses to fabricate missing clauses.</span>
                   </div>
                 )}
@@ -208,16 +208,16 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
         })}
 
         {loading && (
-          <div className="flex items-center gap-2 text-xs text-slate-500 bg-white p-3 rounded-xl border border-slate-200 w-fit">
-            <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-600" />
+          <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800 w-fit">
+            <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-600 dark:text-blue-400" />
             <span>Scanning {currentPolicy.name} for evidence...</span>
           </div>
         )}
       </div>
 
       {/* Suggested Questions */}
-      <div className="p-3 bg-white border-t border-slate-100">
-        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+      <div className="p-3 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800">
+        <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
           Suggested Inquiries
         </div>
         <div className="flex flex-wrap gap-1.5">
@@ -225,7 +225,7 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
             <button
               key={i}
               onClick={() => handleSend(sq)}
-              className="text-[11px] bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded-full transition"
+              className="text-[11px] bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium px-2.5 py-1 rounded-full transition"
             >
               {sq}
             </button>
@@ -234,14 +234,14 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
       </div>
 
       {/* Input Form */}
-      <div className="p-3 bg-white border-t border-slate-200 flex items-center gap-2">
+      <div className="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2">
         <input
           type="text"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
           placeholder={`Ask about ${currentPolicy.name.split(" ")[0]}...`}
-          className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-blue-500 focus:bg-white transition"
+          className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 focus:bg-white dark:focus:bg-slate-900 transition"
         />
         <button
           onClick={() => handleSend()}
