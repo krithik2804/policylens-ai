@@ -44,7 +44,8 @@ export async function uploadPolicies(files: File[]): Promise<{
 
 export async function comparePolicies(
   policyIds: string[],
-  userProfile?: UserProfile
+  userProfile?: UserProfile,
+  policies?: PolicyExtraction[]
 ): Promise<CompareResponse> {
   const res = await fetch(`${API_BASE}/api/compare`, {
     method: "POST",
@@ -52,6 +53,7 @@ export async function comparePolicies(
     body: JSON.stringify({
       policy_ids: policyIds,
       user_profile: userProfile,
+      policies: policies,
     }),
   });
 

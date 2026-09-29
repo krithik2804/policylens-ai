@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { DEMO_POLICIES } from "@/lib/mockData";
+import { extractPolicyFromPdf } from "@/lib/pdfExtractor";
+import { PolicyExtraction } from "@/types";
+
+// In-memory policy cache for the Next.js runtime
+export const POLICY_STORE = new Map<string, PolicyExtraction>();
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,28 +17,66 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const uploadedResults = files.map((file, idx) => {
-      // Pick matching policy structure from demo base or assign custom
-      const basePolicy = DEMO_POLICIES[idx % DEMO_POLICIES.length];
-      const customId = `custom_${idx}_${file.name.replace(/[^a-zA-Z0-9]/g, "_")}`;
+    // Try forwarding to local FastAPI backend if reachable
+    const backendUrl = process.env.BACKEND_URL || "http://localhost:8000";
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 2500);
 
-      return {
-        id: basePolicy.id,
+      const fwdFormData = new FormData();
+      files.forEach((file) => fwdFormData.append("files", file));
+
+      const backendRes = await fetch(`${backendUrl}/api/upload`, {
+        method: "POST",
+        body: fwdFormData,
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+
+      if (backendRes.ok) {
+        const data = await backendRes.json();
+        if (data.policies && Array.isArray(data.policies) && data.policies.length >= 2) {
+          // Store in local cache as well
+          data.policies.forEach((item: any) => {
+            if (item.policy) {
+              POLICY_STORE.set(item.id, item.policy);
+            }
+          });
+          return NextResponse.json(data);
+        }
+      }
+    } catch {
+      // Backend not running or timeout -> Fallback to built-in TypeScript PDF extractor
+    }
+
+    // Process files with TypeScript PDF Extractor (Works everywhere including Vercel!)
+    const uploadedResults = [];
+
+    for (let idx = 0; idx < files.length; idx++) {
+      const file = files[idx];
+      const customId = `custom_${Date.now()}_${idx}_${file.name.replace(/[^a-zA-Z0-9]/g, "_").slice(0, 20)}`;
+      const arrayBuffer = await file.arrayBuffer();
+      const uint8 = new Uint8Array(arrayBuffer);
+
+      // Extract real policy data dynamically from uploaded PDF
+      const extracted = await extractPolicyFromPdf(uint8, file.name, customId);
+      POLICY_STORE.set(customId, extracted);
+
+      uploadedResults.push({
+        id: customId,
         filename: file.name,
         size_kb: Math.round(file.size / 1024),
         status: "ready",
-        policy: {
-          ...basePolicy,
-          filename: file.name,
-        },
-      };
-    });
+        policy: extracted,
+      });
+    }
 
     return NextResponse.json({
-      message: `Successfully processed ${uploadedResults.length} policies.`,
+      message: `Successfully uploaded and extracted ${uploadedResults.length} policies.`,
       policies: uploadedResults,
     });
   } catch (err: any) {
-    return NextResponse.json({ detail: err.message }, { status: 500 });
+    console.error("Upload error:", err);
+    return NextResponse.json({ detail: err.message || "Failed to process PDF upload." }, { status: 500 });
   }
 }

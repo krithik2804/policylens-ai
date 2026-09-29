@@ -134,13 +134,20 @@ export default function Home() {
   // Step 2: Upload policies and trigger analysis
   const handleStartAnalysis = async (files: File[]) => {
     setStagedFiles(files);
-    setPolicyNames(files.map((f, i) => `Policy ${String.fromCharCode(65 + i)}: ${f.name}`));
+    setPolicyNames(files.map((f, i) => `Policy ${String.fromCharCode(65 + i)}: ${f.name.replace(/\.pdf$/i, "").replace(/[-_]/g, " ")}`));
     setCurrentStep("analysis");
 
     try {
       const uploadRes = await uploadPolicies(files);
+      const extractedPolicies = uploadRes.policies.map((p) => p.policy);
       const policyIds = uploadRes.policies.map((p) => p.id);
-      const compRes = await comparePolicies(policyIds, userProfile);
+
+      // Update names to actual extracted insurer and policy names
+      setPolicyNames(
+        extractedPolicies.map((p, i) => `Policy ${String.fromCharCode(65 + i)}: ${p.name}`)
+      );
+
+      const compRes = await comparePolicies(policyIds, userProfile, extractedPolicies);
       setCompareData(compRes);
     } catch (err: any) {
       alert(`Error during analysis: ${err.message}`);
@@ -188,7 +195,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900 selection:text-blue-900 dark:selection:text-blue-100 transition-colors duration-200">
+    <div className="min-h-screen bg-[#fafafa] dark:bg-black flex flex-col text-neutral-900 dark:text-neutral-100 font-sans selection:bg-blue-500/20 selection:text-blue-600 transition-colors duration-200">
       {/* Top Navigation with Theme Switcher */}
       <Navbar
         currentStep={currentStep}
@@ -289,12 +296,12 @@ export default function Home() {
       )}
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-6 text-center text-xs text-slate-500 dark:text-slate-400 transition-colors">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <footer className="border-t border-neutral-200 dark:border-neutral-800/80 bg-white dark:bg-black py-5 text-center text-xs text-neutral-500 dark:text-neutral-400 transition-colors">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2.5">
           <p>
-            © {new Date().getFullYear()} <strong className="text-slate-700 dark:text-slate-200">PolicyLens AI</strong> — Hackathon Prototype.
+            © {new Date().getFullYear()} <strong className="text-neutral-700 dark:text-neutral-200">PolicyLens AI</strong> — Hackathon Prototype.
           </p>
-          <p className="text-slate-400 dark:text-slate-500">
+          <p className="text-neutral-400 dark:text-neutral-500 text-[11px]">
             Educational comparison tool — not insurance advice, a quotation, or a licensed insurance sale.
           </p>
         </div>
