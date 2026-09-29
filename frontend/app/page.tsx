@@ -95,16 +95,19 @@ export default function Home() {
   });
 
   const [isAskDrawerOpen, setIsAskDrawerOpen] = useState<boolean>(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   // Quick Reset to Home
   const handleReset = () => {
     setCurrentStep("landing");
     setCompareData(null);
     setStagedFiles([]);
+    setUploadError(null);
   };
 
   // Trigger Demo Mode directly
   const handleTriggerDemo = async () => {
+    setUploadError(null);
     setPolicyNames([
       "Policy A: SecureCare Essential",
       "Policy B: HealthShield Student Plus",
@@ -122,18 +125,21 @@ export default function Home() {
 
   // Start regular flow from hero
   const handleStartComparison = () => {
+    setUploadError(null);
     setCurrentStep("questions");
   };
 
   // Step 1 -> Step 2
   const handleQuestionsComplete = (profile: UserProfile) => {
     setUserProfile(profile);
+    setUploadError(null);
     setCurrentStep("upload");
   };
 
   // Step 2: Upload policies and trigger analysis
   const handleStartAnalysis = async (files: File[]) => {
     setStagedFiles(files);
+    setUploadError(null);
     setPolicyNames(files.map((f, i) => `Policy ${String.fromCharCode(65 + i)}: ${f.name.replace(/\.pdf$/i, "").replace(/[-_]/g, " ")}`));
     setCurrentStep("analysis");
 
@@ -150,20 +156,15 @@ export default function Home() {
       const compRes = await comparePolicies(policyIds, userProfile, extractedPolicies);
       setCompareData(compRes);
     } catch (err: any) {
-      alert(`Error during analysis: ${err.message}`);
+      setUploadError(err.message || "Failed to process uploaded documents. Please ensure files are valid insurance policies.");
       setCurrentStep("upload");
     }
   };
 
-  // Step 3: Analysis complete callback
+  // Step 3: Analysis complete callback - NEVER fallback to demo data if upload failed
   const handleAnalysisComplete = () => {
     if (compareData) {
       setCurrentStep("comparison");
-    } else {
-      fetchDemoData().then((res) => {
-        setCompareData(res);
-        setCurrentStep("comparison");
-      });
     }
   };
 
@@ -227,6 +228,8 @@ export default function Home() {
             onStartAnalysis={handleStartAnalysis}
             onUseDemoData={handleTriggerDemo}
             onBack={() => setCurrentStep("questions")}
+            uploadError={uploadError}
+            onClearError={() => setUploadError(null)}
           />
         )}
 

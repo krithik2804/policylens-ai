@@ -20,7 +20,20 @@ class PolicyExtractor:
     def extract_from_pdf(self, file_path: str, policy_id: str, original_filename: str, is_demo: bool = False) -> PolicyExtraction:
         doc: PDFDocument = parse_pdf(file_path)
 
-        # 1. Policy Name & Insurer
+        if not is_demo:
+            full_text = doc.get_full_text()
+            if doc.total_pages == 0 or len(full_text.strip()) < 50:
+                raise ValueError(f'"{original_filename}" contains no extractable text or is empty. Please upload a valid text PDF.')
+
+            full_lower = full_text.lower()
+            insurance_keywords = [
+                "insurance", "policy", "sum insured", "coverage", "premium",
+                "exclusion", "waiting period", "hospital", "mediclaim", "claim",
+                "deductible", "benefit", "insured", "insurer", "tpa", "co-pay", "copay"
+            ]
+            matches = sum(1 for kw in insurance_keywords if kw in full_lower)
+            if matches < 2:
+                raise ValueError(f'"{original_filename}" does not appear to be an insurance document. Please upload an authentic policy PDF.')
         policy_name_field = self._extract_policy_name(doc, original_filename)
         insurer_field = self._extract_insurer(doc)
         policy_type_field = self._extract_policy_type(doc)

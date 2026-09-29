@@ -17,6 +17,32 @@ export async function extractPolicyFromPdf(
   const totalPages = result.totalPages;
   const pagesText: string[] = result.text || [];
 
+  // 1. Strict validation: check for extractable text
+  const totalChars = pagesText.reduce((acc, t) => acc + t.trim().length, 0);
+  if (totalPages === 0 || totalChars < 50) {
+    throw new Error(
+      `"${filename}" contains no readable text or is empty. Please upload an official insurance policy PDF document with extractable text.`
+    );
+  }
+
+  // 2. Strict validation: verify document contains insurance-specific terms
+  const insuranceKeywords = [
+    "insurance", "policy", "sum insured", "coverage", "premium",
+    "exclusion", "exclusions", "waiting period", "hospital", "hospitalisation",
+    "hospitalization", "mediclaim", "claim", "claims", "deductible",
+    "benefit", "insured", "insurer", "tpa", "co-pay", "copay",
+    "cashless", "ayush", "uin", "prospectus", "indemnity", "critical illness"
+  ];
+  const fullText = pagesText.join("\n");
+  const fullTextLower = fullText.toLowerCase();
+
+  const matchedCount = insuranceKeywords.filter((k) => fullTextLower.includes(k)).length;
+  if (matchedCount < 2) {
+    throw new Error(
+      `"${filename}" does not appear to be an insurance policy document (no policy terms found). Please upload a valid health or motor insurance PDF.`
+    );
+  }
+
   // Break text into sentences with page numbers
   const sentences: PageSentence[] = [];
   pagesText.forEach((pText, pageIdx) => {
@@ -31,9 +57,6 @@ export async function extractPolicyFromPdf(
       }
     });
   });
-
-  const fullText = pagesText.join("\n");
-  const fullTextLower = fullText.toLowerCase();
 
   // 1. Policy Name & Insurer
   const { name: policyName, insurer } = detectNameAndInsurer(pagesText, filename);

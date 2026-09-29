@@ -8,7 +8,9 @@ import {
   MessageSquare,
   Sparkles,
   BookOpen,
+  Download,
 } from "lucide-react";
+import { generateComparisonPdfReport } from "../lib/pdfReportGenerator";
 
 interface ComparisonDashboardProps {
   data: CompareResponse;
@@ -61,8 +63,17 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
         {/* Action Controls */}
         <div className="flex items-center gap-2.5">
           <button
+            onClick={() => generateComparisonPdfReport(data)}
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-200 text-white dark:text-black text-xs font-semibold shadow-sm transition active:scale-98 cursor-pointer"
+            title="Export official vector PDF audit report"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Export PDF Report</span>
+          </button>
+
+          <button
             onClick={onOpenAskDrawer}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition active:scale-98"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition active:scale-98 cursor-pointer"
           >
             <MessageSquare className="w-3.5 h-3.5" />
             <span>Ask Policy AI</span>

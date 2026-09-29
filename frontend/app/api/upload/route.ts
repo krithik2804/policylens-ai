@@ -44,8 +44,13 @@ export async function POST(req: NextRequest) {
           });
           return NextResponse.json(data);
         }
+      } else {
+        const errData = await backendRes.json().catch(() => ({}));
+        if (errData.detail) {
+          return NextResponse.json({ detail: errData.detail }, { status: backendRes.status });
+        }
       }
-    } catch {
+    } catch (err: any) {
       // Backend not running or timeout -> Fallback to built-in TypeScript PDF extractor
     }
 
@@ -77,6 +82,6 @@ export async function POST(req: NextRequest) {
     });
   } catch (err: any) {
     console.error("Upload error:", err);
-    return NextResponse.json({ detail: err.message || "Failed to process PDF upload." }, { status: 500 });
+    return NextResponse.json({ detail: err.message || "Failed to process PDF upload." }, { status: 400 });
   }
 }

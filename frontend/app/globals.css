@@ -55,3 +55,15 @@ body {
 .animate-soft-pulse {
   animation: softPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
+/* Glassmorphism animated radar scanner */
+@keyframes radarSweep {
+  0% { top: 0%; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { top: 98%; opacity: 0; }
+}
+
+.animate-scan-line {
+  animation: radarSweep 2.8s ease-in-out infinite;
+}

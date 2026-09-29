@@ -143,12 +143,18 @@ async def upload_policies(files: List[UploadFile] = File(...)):
         PDF_PATHS[policy_id] = file_path
 
         # Perform extraction immediately
-        extracted = extractor.extract_from_pdf(
-            file_path=file_path,
-            policy_id=policy_id,
-            original_filename=file.filename,
-            is_demo=False
-        )
+        try:
+            extracted = extractor.extract_from_pdf(
+                file_path=file_path,
+                policy_id=policy_id,
+                original_filename=file.filename,
+                is_demo=False
+            )
+        except ValueError as val_err:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+            raise HTTPException(status_code=400, detail=str(val_err))
+
         POLICY_STORE[policy_id] = extracted
 
         uploaded_results.append({
