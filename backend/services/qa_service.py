@@ -7,6 +7,7 @@ If the clause cannot be located, returns:
 """
 import os
 import re
+import openai
 from typing import Optional
 from backend.models.schemas import AskResponse, PolicyExtraction
 from backend.services.pdf_service import PDFDocument
@@ -17,7 +18,10 @@ UNFOUND_ANSWER = "I couldn't find an explicit clause in the provided document."
 
 class PolicyQAService:
     def __init__(self):
-        self.gemini_key = os.environ.get("GEMINI_API_KEY")
+        # Initialize OpenAI API key
+        self.openai_key = os.getenv("OPENAI_API_KEY")
+        if self.openai_key:
+            openai.api_key = self.openai_key
 
     def answer_question(self, doc: PDFDocument, policy: PolicyExtraction, question: str) -> AskResponse:
         q_lower = question.lower().strip()
@@ -139,14 +143,43 @@ class PolicyQAService:
                             found=True
                         )
 
-        # Strictly NOT found: do NOT fabricate
+        # Strictly NOT found: attempt OpenAI fallback before giving up
+        # Prepare a prompt with the full policy text and the user question
+        full_text = doc.get_full_text()
+        prompt = (
+            "You are an AI assistant specialized in insurance policy interpretation. "
+            "Given the following policy document (full text) and a user question, "
+            "provide a concise answer grounded in the document. If the answer cannot be found, respond with the predefined unfound answer.\n"
+            f"Document:\n{full_text}\n\nQuestion: {question}\n"
+        )
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.0,
+                max_tokens=500,
+            )
+            answer_text = response.choices[0].message.content.strip()
+        except Exception as e:
+            answer_text = UNFOUND_ANSWER
+
+        # Find a citation within the document for the generated answer (simple heuristic)
+        quote = None
+        page_num = None
+        section = None
+        for sent in answer_text.split('. '):
+            loc = doc.find_quote_location(sent)
+            if loc:
+                page_num, quote, section = loc
+                break
+
         return AskResponse(
             policy_id=policy.id,
             question=question,
-            answer=UNFOUND_ANSWER,
-            evidence_quote=None,
-            page=None,
-            section=None,
+            answer=answer_text,
+            evidence_quote=quote,
+            page=page_num,
+            section=section if section else "GENERAL TERMS",
             source_document=policy.filename,
-            found=False
+            found=answer_text != UNFOUND_ANSWER,
         )
