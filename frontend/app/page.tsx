@@ -44,7 +44,7 @@ export default function Home() {
   // User Profile from Screen 2
   const [userProfile, setUserProfile] = useState<UserProfile>({
     customer_type: "Myself",
-    priorities: ["Coverage", "Waiting Period"],
+    priorities: [],
     budget: "₹5,000 - ₹10,000",
   });
 
@@ -123,7 +123,7 @@ export default function Home() {
     setAnalysisAnimDone(false);
     setUserProfile({
       customer_type: "Student",
-      priorities: ["Coverage", "Waiting Period"],
+      priorities: [],
       budget: "₹5,000 - ₹10,000",
     });
     setPolicyNames([

@@ -118,14 +118,18 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
           </div>
           <div className="flex flex-wrap items-center gap-1.5">
             <span className="text-xs text-slate-400 dark:text-slate-500 uppercase font-semibold mr-1">Priorities:</span>
-            {user_profile.priorities.map((p) => (
-              <span
-                key={p}
-                className="text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700"
-              >
-                {p}
-              </span>
-            ))}
+            {user_profile.priorities && user_profile.priorities.length > 0 ? (
+              user_profile.priorities.map((p) => (
+                <span
+                  key={p}
+                  className="text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700"
+                >
+                  {p}
+                </span>
+              ))
+            ) : (
+              <span className="text-xs text-slate-400 dark:text-slate-500 italic">None selected (All factors analyzed)</span>
+            )}
           </div>
         </div>
       )}
@@ -245,7 +249,7 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80">
               {feature_matrix.map((row, rowIdx) => {
-                const isPriorityRow = user_profile?.priorities.some(
+                const isPriorityRow = (user_profile?.priorities || []).some(
                   (p) => row.label.toLowerCase().includes(p.toLowerCase()) || row.key.toLowerCase().includes(p.toLowerCase())
                 );
 

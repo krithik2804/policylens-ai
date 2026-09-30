@@ -324,7 +324,7 @@ export const DEMO_POLICIES: PolicyExtraction[] = [
 
 export function buildComparison(policies: PolicyExtraction[], userProfile?: UserProfile): CompareResponse {
   const priorities = [
-    ...(userProfile?.priorities || ["Coverage", "Waiting Period"])
+    ...(userProfile?.priorities || [])
   ].map((p) => p.toLowerCase());
 
   const summaryPoints = policies.map((p) => {

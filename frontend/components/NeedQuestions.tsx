@@ -21,7 +21,7 @@ export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
     initialProfile?.customer_type || "Myself"
   );
   const [priorities, setPriorities] = useState<string[]>(
-    initialProfile?.priorities || ["Coverage", "Waiting Period"]
+    initialProfile?.priorities || []
   );
   const [budget, setBudget] = useState<string>(
     initialProfile?.budget || "₹5,000 - ₹10,000"
@@ -51,9 +51,7 @@ export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
 
   const togglePriority = (item: string) => {
     if (priorities.includes(item)) {
-      if (priorities.length > 1) {
-        setPriorities(priorities.filter((p) => p !== item));
-      }
+      setPriorities(priorities.filter((p) => p !== item));
     } else {
       setPriorities([...priorities, item]);
     }
