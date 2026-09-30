@@ -45,7 +45,7 @@ export default function Home() {
   const [userProfile, setUserProfile] = useState<UserProfile>({
     customer_type: "Myself",
     priorities: ["Coverage", "Waiting Period"],
-    budget: "₹5,000–₹10,000",
+    budget: "₹5,000 - ₹10,000",
   });
 
   // Staged files or policy IDs
@@ -97,6 +97,7 @@ export default function Home() {
   const [isAskDrawerOpen, setIsAskDrawerOpen] = useState<boolean>(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [analysisAnimDone, setAnalysisAnimDone] = useState<boolean>(false);
+  const [isDemoMode, setIsDemoMode] = useState<boolean>(false);
 
   // Transition to comparison as soon as both data and animation are ready
   useEffect(() => {
@@ -107,6 +108,7 @@ export default function Home() {
 
   // Quick Reset to Home
   const handleReset = () => {
+    setIsDemoMode(false);
     setCurrentStep("landing");
     setCompareData(null);
     setStagedFiles([]);
@@ -114,8 +116,28 @@ export default function Home() {
     setAnalysisAnimDone(false);
   };
 
-  // Trigger Demo Mode directly
+  // Trigger Demo Mode: Starts at Step 1 (Questions) as required by the demo script!
   const handleTriggerDemo = async () => {
+    setIsDemoMode(true);
+    setUploadError(null);
+    setAnalysisAnimDone(false);
+    setUserProfile({
+      customer_type: "Student",
+      priorities: ["Coverage", "Waiting Period"],
+      budget: "₹5,000 - ₹10,000",
+    });
+    setPolicyNames([
+      "Policy A: SecureCare Essential",
+      "Policy B: HealthShield Student Plus",
+      "Policy C: MediSure Basic Care",
+    ]);
+    // Pre-fetch demo data in background
+    fetchDemoData().then((demoRes) => setCompareData(demoRes)).catch(console.error);
+    setCurrentStep("questions");
+  };
+
+  // Launch Demo Analysis from Upload screen
+  const handleLaunchDemoAnalysis = async () => {
     setUploadError(null);
     setAnalysisAnimDone(false);
     setPolicyNames([
@@ -124,17 +146,17 @@ export default function Home() {
       "Policy C: MediSure Basic Care",
     ]);
     setCurrentStep("analysis");
-
     try {
       const demoRes = await fetchDemoData();
       setCompareData(demoRes);
     } catch (err) {
-      console.error("Failed to fetch demo data:", err);
+      console.error("Failed to load demo policies:", err);
     }
   };
 
   // Start regular flow from hero
   const handleStartComparison = () => {
+    setIsDemoMode(false);
     setUploadError(null);
     setAnalysisAnimDone(false);
     setCurrentStep("questions");
@@ -210,7 +232,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] dark:bg-[#0b0f19] flex flex-col text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-500/20 selection:text-blue-600 transition-colors duration-200">
+    <div className="min-h-screen bg-[#f8fafc] dark:bg-slate-900 flex flex-col text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-500/20 selection:text-blue-600 transition-colors duration-200">
       {/* Top Navigation with Theme Switcher */}
       <Navbar
         currentStep={currentStep}
@@ -232,6 +254,7 @@ export default function Home() {
         {currentStep === "questions" && (
           <NeedQuestions
             initialProfile={userProfile}
+            isDemoMode={isDemoMode}
             onComplete={handleQuestionsComplete}
             onBack={() => setCurrentStep("landing")}
           />
@@ -239,8 +262,9 @@ export default function Home() {
 
         {currentStep === "upload" && (
           <UploadPolicies
+            isDemoMode={isDemoMode}
             onStartAnalysis={handleStartAnalysis}
-            onUseDemoData={handleTriggerDemo}
+            onUseDemoData={handleLaunchDemoAnalysis}
             onBack={() => setCurrentStep("questions")}
             uploadError={uploadError}
             onClearError={() => setUploadError(null)}

@@ -1,17 +1,19 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import { UserProfile } from "../types";
-import { User, Users, GraduationCap, Heart, Check, ArrowRight, ArrowLeft } from "lucide-react";
+import { User, Users, GraduationCap, Heart, Check, ArrowRight, ArrowLeft, Sparkles } from "lucide-react";
 
 interface NeedQuestionsProps {
   initialProfile?: UserProfile | null;
+  isDemoMode?: boolean;
   onComplete: (profile: UserProfile) => void;
   onBack: () => void;
 }
 
 export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
   initialProfile,
+  isDemoMode,
   onComplete,
   onBack,
 }) => {
@@ -22,7 +24,7 @@ export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
     initialProfile?.priorities || ["Coverage", "Waiting Period"]
   );
   const [budget, setBudget] = useState<string>(
-    initialProfile?.budget || "â‚¹5,000â€“â‚¹10,000"
+    initialProfile?.budget || "₹5,000 - ₹10,000"
   );
 
   const customerOptions = [
@@ -41,10 +43,10 @@ export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
   ];
 
   const budgetOptions = [
-    "Under â‚¹5,000",
-    "â‚¹5,000â€“â‚¹10,000",
-    "â‚¹10,000â€“â‚¹20,000",
-    "â‚¹20,000+",
+    "Under ₹5,000",
+    "₹5,000 - ₹10,000",
+    "₹10,000 - ₹20,000",
+    "₹20,000+",
   ];
 
   const togglePriority = (item: string) => {
@@ -88,6 +90,17 @@ export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
       </div>
 
       <div className="space-y-4 bg-white dark:bg-[#111726] p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs">
+        {isDemoMode && (
+          <div className="p-3 rounded-lg bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700 flex items-center justify-between text-xs text-blue-900 dark:text-blue-200">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+              <span>
+                <strong>Demo Walkthrough Script:</strong> Profile configured for Student Health (₹5,000 - ₹10,000 budget). Click <strong>Continue to Upload</strong> to inspect the contracts.
+              </span>
+            </div>
+          </div>
+        )}
+
         {/* Question 1 */}
         <div>
           <label className="block text-xs font-semibold text-slate-900 dark:text-slate-100 mb-0.5 uppercase tracking-wider">

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from "react";
 import { CompareResponse, PolicyExtraction } from "../types";
@@ -9,6 +9,7 @@ import {
   Sparkles,
   BookOpen,
   Download,
+  ShieldCheck,
 } from "lucide-react";
 import { generateComparisonPdfReport } from "../lib/pdfReportGenerator";
 
@@ -81,6 +82,23 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
         </div>
       </div>
 
+      {/* Trust, Zero-Guessed-Cover & Anti-Solicitation Banner */}
+      <div className="p-3.5 rounded-xl bg-blue-50/70 dark:bg-slate-900 border border-blue-200 dark:border-blue-900/60 shadow-2xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
+        <div className="flex items-center gap-2.5 text-blue-950 dark:text-blue-200">
+          <ShieldCheck className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" />
+          <span className="leading-relaxed">
+            <strong className="font-bold text-blue-900 dark:text-blue-300">Independent Audit Standard:</strong> Zero guessed cover. We do not sell insurance, do not collect premiums, and have no commercial incentives. Every cell is verified with a grounded quote or an honest blank.
+          </span>
+        </div>
+        <div className="inline-flex items-center gap-2 text-[11px] font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 px-3 py-1 rounded-md border border-slate-200 dark:border-slate-700 shrink-0">
+          <span>Zero Guessed Cover</span>
+          <span>•</span>
+          <span>No Premium Collected</span>
+          <span>•</span>
+          <span>No Selling</span>
+        </div>
+      </div>
+
       {/* User Requirement Profile Banner */}
       {user_profile && (
         <div className="p-3.5 rounded-xl bg-white dark:bg-[#111726] border border-slate-200 dark:border-slate-800 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
@@ -93,7 +111,7 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
                 Profile Focus
               </div>
               <div className="text-xs text-slate-700 dark:text-slate-300">
-                Beneficiary: <strong className="text-slate-900 dark:text-slate-100 font-semibold">{user_profile.customer_type}</strong> â€¢ Budget:{" "}
+                Beneficiary: <strong className="text-slate-900 dark:text-slate-100 font-semibold">{user_profile.customer_type}</strong> • Budget:{" "}
                 <strong className="text-slate-900 dark:text-slate-100 font-semibold">{user_profile.budget}</strong>
               </div>
             </div>
@@ -243,11 +261,11 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
                     }`}
                   >
                     {/* Feature Label Column */}
-                    <td className="py-3 px-3 sm:px-4 align-top">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-100">{row.label}</span>
+                    <td className="py-3.5 px-3 sm:px-4 align-top w-1/4">
+                      <div className="flex flex-col items-start gap-1">
+                        <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">{row.label}</span>
                         {isPriorityRow && (
-                          <span className="text-xs font-bold text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-950/80 px-1.5 py-0.2 rounded border border-blue-200 dark:border-blue-800 uppercase">
+                          <span className="text-[10px] font-bold text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-950/80 px-2 py-0.5 rounded border border-blue-200 dark:border-blue-800 uppercase tracking-wider">
                             PRIORITY
                           </span>
                         )}
@@ -257,46 +275,54 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
                     {/* Policy Values Columns */}
                     {policies.map((p) => {
                       const cell = row.values[p.id];
-                      if (!cell) return <td key={p.id} className="py-3 px-3 sm:px-4 text-slate-400 font-medium text-xs">N/A</td>;
+                      if (!cell) return <td key={p.id} className="py-3.5 px-3 sm:px-4 text-slate-400 font-medium text-xs">N/A</td>;
 
                       return (
                         <td
                           key={p.id}
                           onClick={() => onOpenEvidence(row.key, row.label, p, cell.evidence)}
-                          className="py-3 px-3 sm:px-4 align-top cursor-pointer group hover:bg-blue-50/60 dark:hover:bg-blue-950/30 transition"
+                          className="py-3.5 px-3 sm:px-4 align-top cursor-pointer group hover:bg-blue-50/60 dark:hover:bg-blue-950/30 transition border-l border-slate-100 dark:border-slate-800/60"
                         >
                           <div>
                             {cell.is_unclear ? (
-                              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 border border-amber-300 dark:border-amber-800 font-bold text-xs">
-                                <AlertTriangle className="w-3 h-3 text-amber-600 dark:text-amber-400 shrink-0" />
-                                <span>UNCLEAR</span>
+                              <div>
+                                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-950/80 text-amber-900 dark:text-amber-300 border border-amber-300 dark:border-amber-700 font-bold text-xs sm:text-sm">
+                                  <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                                  <span>UNCLEAR</span>
+                                </div>
+                                <div className="mt-2 p-2 rounded-lg bg-amber-50/70 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/60 text-xs">
+                                  <p className="font-bold text-amber-800 dark:text-amber-300">
+                                    Honest Blank: Clause Missing
+                                  </p>
+                                  <p className="text-[11px] text-amber-700 dark:text-amber-400 mt-0.5">
+                                    No explicit clause found in contract PDF. Zero cover assumed.
+                                  </p>
+                                </div>
                               </div>
                             ) : (
-                              <div className="font-medium text-slate-900 dark:text-slate-100 text-xs sm:text-sm leading-snug">
-                                {cell.value}
-                              </div>
-                            )}
+                              <div>
+                                <div className="font-bold text-slate-950 dark:text-white text-sm sm:text-base leading-snug">
+                                  {cell.value}
+                                </div>
 
-                            {/* Evidence Citation Tag */}
-                            {cell.evidence && (
-                              <div className="mt-1 flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
-                                {cell.evidence.page ? (
-                                  <span className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.2 rounded text-xs font-mono font-medium text-slate-700 dark:text-slate-300">
-                                    Page {cell.evidence.page}
-                                  </span>
-                                ) : (
-                                  <span className="text-amber-600 dark:text-amber-400 font-mono text-xs font-semibold">
-                                    No Clause
-                                  </span>
+                                {/* Quoted Verbatim Contract Clause */}
+                                {cell.evidence?.quote && (
+                                  <div className="mt-2 p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 text-xs text-slate-700 dark:text-slate-300">
+                                    <p className="italic font-normal line-clamp-3">
+                                      "{cell.evidence.quote}"
+                                    </p>
+                                    <div className="mt-1.5 flex items-center justify-between text-[11px]">
+                                      <span className="font-mono font-semibold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-1.5 py-0.2 rounded border border-blue-200/60 dark:border-blue-900/60">
+                                        Page {cell.evidence.page || 1}
+                                      </span>
+                                      <span className="text-[10px] text-blue-600 dark:text-blue-400 font-medium group-hover:underline flex items-center gap-0.5">
+                                        <FileSearch className="w-2.5 h-2.5" /> Full Quote
+                                      </span>
+                                    </div>
+                                  </div>
                                 )}
                               </div>
                             )}
-
-                            {/* Hover prompt */}
-                            <div className="text-xs text-blue-600 dark:text-blue-400 font-medium opacity-0 group-hover:opacity-100 transition mt-1 flex items-center gap-1">
-                              <FileSearch className="w-3 h-3" />
-                              <span>Verify clause quote</span>
-                            </div>
                           </div>
                         </td>
                       );
@@ -323,19 +349,19 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
           </div>
         </div>
 
-        <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#151d2f] border border-slate-200 dark:border-slate-800 space-y-2 text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-normal">
+        <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-[#151d2f] border border-slate-200 dark:border-slate-800 space-y-2 text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-normal">
           {summary_points.map((pt, i) => (
             <div key={i} className="flex items-start gap-2">
-              <span className="font-bold text-blue-600 dark:text-blue-400 text-sm leading-none mt-0.5">â€¢</span>
+              <span className="font-bold text-blue-600 dark:text-blue-400 text-sm leading-none mt-0.5">•</span>
               <p>{pt}</p>
             </div>
           ))}
         </div>
 
         {/* Safety Disclaimer */}
-        <div className="mt-2.5 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-slate-500 dark:text-slate-400">
+        <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-slate-500 dark:text-slate-400">
           <span>
-            Comparison tool for informational evaluation â€” not a licensed insurance solicitation.
+            Comparison tool for informational evaluation - not a licensed insurance solicitation. Zero premium collected.
           </span>
           <span className="font-semibold text-slate-700 dark:text-slate-400">PolicyLens Evidence Engine</span>
         </div>

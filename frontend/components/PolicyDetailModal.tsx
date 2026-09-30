@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from "react";
 import { PolicyExtraction } from "../types";
@@ -36,7 +36,7 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
               </span>
             </div>
             <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">{policy.name}</h2>
-            <p className="text-xs text-slate-500 font-medium">{policy.insurer} â€¢ {policy.type}</p>
+            <p className="text-xs text-slate-500 font-medium">{policy.insurer} • {policy.type}</p>
           </div>
           <button
             onClick={onClose}

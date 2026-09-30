@@ -1,4 +1,4 @@
-﻿import { jsPDF } from "jspdf";
+import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import { CompareResponse, PolicyExtraction } from "@/types";
 
@@ -10,16 +10,18 @@ import { CompareResponse, PolicyExtraction } from "@/types";
 function cleanPdfText(text: any): string {
   if (text === null || text === undefined) return "";
   let str = String(text);
-  // Replace Rupee symbol with standard Rs.
-  str = str.replace(/---/g, "Rs. ");
+  // Replace Rupee symbol (Unicode \u20B9 or ₹) with standard Rs.
+  str = str.replace(/\u20B9/g, "Rs. ").replace(/₹/g, "Rs. ");
   // Replace en-dash / em-dash with standard hyphen
-  str = str.replace(/[------]/g, "-");
+  str = str.replace(/[\u2013\u2014\u2015]/g, "-");
   // Replace smart quotes with standard quotes
   str = str.replace(/[\u201C\u201D]/g, '"').replace(/[\u2018\u2019]/g, "'");
   // Replace bullet points with standard hyphens
-  str = str.replace(/[---------]/g, "-");
+  str = str.replace(/[\u2022\u2023\u25E6\u2043\u2219]/g, "-");
   // Normalize whitespace
   str = str.replace(/\r\n/g, "\n").replace(/\t/g, " ");
+  // Strip any remaining non-ASCII characters that jsPDF cannot render natively
+  str = str.replace(/[^\x00-\x7F]/g, "");
   return str.trim();
 }
 

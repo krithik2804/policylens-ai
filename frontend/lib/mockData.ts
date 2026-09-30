@@ -337,7 +337,7 @@ export function buildComparison(policies: PolicyExtraction[], userProfile?: User
   const featureMatrix = [
     {
       key: "coverage",
-      label: "Sum Insured / Coverage",
+      label: "Cover / Sum Insured",
       is_priority: priorities.some((p) => p.includes("cover")),
       values: Object.fromEntries(
         policies.map((p) => [
@@ -366,21 +366,6 @@ export function buildComparison(policies: PolicyExtraction[], userProfile?: User
       )
     },
     {
-      key: "premium",
-      label: "Annual Premium",
-      is_priority: priorities.some((p) => p.includes("prem") || p.includes("budget")),
-      values: Object.fromEntries(
-        policies.map((p) => [
-          p.id,
-          {
-            value: p.premium,
-            is_unclear: p.premium === "UNCLEAR",
-            evidence: p.evidence_map.premium || null
-          }
-        ])
-      )
-    },
-    {
       key: "exclusions",
       label: "Major Exclusions",
       is_priority: priorities.some((p) => p.includes("exclu")),
@@ -388,7 +373,7 @@ export function buildComparison(policies: PolicyExtraction[], userProfile?: User
         policies.map((p) => [
           p.id,
           {
-            value: `${p.major_exclusions_detailed?.length || 4} key exclusions`,
+            value: `${p.major_exclusions_detailed?.length || 4} Key Exclusions`,
             items: p.major_exclusions_detailed?.map((e) => e.item) || p.exclusions,
             is_unclear: false,
             evidence: p.evidence_map.exclusions || null
@@ -397,46 +382,16 @@ export function buildComparison(policies: PolicyExtraction[], userProfile?: User
       )
     },
     {
-      key: "deductible",
-      label: "Compulsory Deductible",
-      is_priority: false,
+      key: "premium",
+      label: "Price Quote (Annual Premium)",
+      is_priority: priorities.some((p) => p.includes("prem") || p.includes("budget")),
       values: Object.fromEntries(
         policies.map((p) => [
           p.id,
           {
-            value: p.deductible,
-            is_unclear: p.deductible === "UNCLEAR",
-            evidence: p.evidence_map.deductible || null
-          }
-        ])
-      )
-    },
-    {
-      key: "claim_conditions",
-      label: "Claim Notice Conditions",
-      is_priority: priorities.some((p) => p.includes("claim")),
-      values: Object.fromEntries(
-        policies.map((p) => [
-          p.id,
-          {
-            value: p.claim_conditions,
-            is_unclear: p.claim_conditions === "UNCLEAR",
-            evidence: p.evidence_map.claim_conditions || null
-          }
-        ])
-      )
-    },
-    {
-      key: "important_limitations",
-      label: "Important Limitations",
-      is_priority: false,
-      values: Object.fromEntries(
-        policies.map((p) => [
-          p.id,
-          {
-            value: p.important_limitations,
-            is_unclear: p.important_limitations === "UNCLEAR",
-            evidence: p.evidence_map.important_limitations || null
+            value: p.premium,
+            is_unclear: p.premium === "UNCLEAR",
+            evidence: p.evidence_map.premium || null
           }
         ])
       )

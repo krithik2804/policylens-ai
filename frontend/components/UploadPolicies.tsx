@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useRef, useEffect } from "react";
 import { UploadCloud, CheckCircle2, AlertTriangle, X, Sparkles, ArrowRight, ArrowLeft, RefreshCw, FileX } from "lucide-react";
@@ -9,6 +9,7 @@ interface UploadPoliciesProps {
   onBack: () => void;
   uploadError?: string | null;
   onClearError?: () => void;
+  isDemoMode?: boolean;
 }
 
 export const UploadPolicies: React.FC<UploadPoliciesProps> = ({
@@ -17,6 +18,7 @@ export const UploadPolicies: React.FC<UploadPoliciesProps> = ({
   onBack,
   uploadError,
   onClearError,
+  isDemoMode,
 }) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [dragActive, setDragActive] = useState<boolean>(false);
@@ -190,22 +192,96 @@ export const UploadPolicies: React.FC<UploadPoliciesProps> = ({
         </p>
 
         <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium border border-slate-200 dark:border-slate-700">
-          <span>Min: 2 policies â€¢ Max: 3 policies</span>
+          <span>Min: 2 policies • Max: 3 policies</span>
         </div>
       </div>
 
       {/* Uploaded Documents List */}
       <div className="mt-4 space-y-2">
         <div className="flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300">
-          <span>Staged Documents ({selectedFiles.length} / 3)</span>
-          {selectedFiles.length < 2 && (
+          <span>Staged Documents ({isDemoMode && selectedFiles.length === 0 ? 3 : selectedFiles.length} / 3)</span>
+          {(!isDemoMode && selectedFiles.length < 2) && (
             <span className="text-amber-600 dark:text-amber-400 font-medium text-xs">
               Add {2 - selectedFiles.length} more to compare
             </span>
           )}
         </div>
 
-        {selectedFiles.length === 0 ? (
+        {isDemoMode && selectedFiles.length === 0 ? (
+          <div className="space-y-2.5">
+            <div className="p-3 rounded-lg bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700 text-xs text-blue-900 dark:text-blue-200">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+                <span>
+                  <strong>Demo Suite Preloaded:</strong> 2 contracts with full clause wordings + 1 contract with a missing waiting period clause (triggers strict UNCLEAR honest blank).
+                </span>
+              </div>
+            </div>
+
+            {/* Mock Policy A */}
+            <div className="bg-white dark:bg-[#111726] p-3 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-between shadow-2xs">
+              <div className="flex items-center gap-2.5">
+                <div className="w-6 h-6 rounded-md bg-slate-900 dark:bg-slate-800 text-white font-bold text-xs flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700">
+                  A
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-semibold text-xs text-slate-900 dark:text-slate-100">Policy A: SecureCare Essential</span>
+                    <span className="text-[10px] text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded border border-emerald-200 dark:border-emerald-900/60 font-medium">
+                      Full Mock Wording
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-normal">
+                    StarCare General Insurance Ltd. • 2 Pages • Complete Clause Set
+                  </p>
+                </div>
+              </div>
+              <span className="text-xs text-slate-400 font-mono">14.2 KB</span>
+            </div>
+
+            {/* Mock Policy B */}
+            <div className="bg-white dark:bg-[#111726] p-3 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-between shadow-2xs">
+              <div className="flex items-center gap-2.5">
+                <div className="w-6 h-6 rounded-md bg-slate-900 dark:bg-slate-800 text-white font-bold text-xs flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700">
+                  B
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-semibold text-xs text-slate-900 dark:text-slate-100">Policy B: HealthShield Student Plus</span>
+                    <span className="text-[10px] text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.2 rounded border border-emerald-200 dark:border-emerald-900/60 font-medium">
+                      Full Mock Wording
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-normal">
+                    Apex Health Assurance • 2 Pages • Complete Clause Set
+                  </p>
+                </div>
+              </div>
+              <span className="text-xs text-slate-400 font-mono">15.8 KB</span>
+            </div>
+
+            {/* Mock Policy C */}
+            <div className="bg-white dark:bg-[#111726] p-3 rounded-xl border border-amber-300 dark:border-amber-900/60 flex items-center justify-between shadow-2xs">
+              <div className="flex items-center gap-2.5">
+                <div className="w-6 h-6 rounded-md bg-amber-600 text-white font-bold text-xs flex items-center justify-center shrink-0">
+                  C
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-semibold text-xs text-slate-900 dark:text-slate-100">Policy C: MediSure Basic Care</span>
+                    <span className="text-[10px] text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 px-1.5 py-0.2 rounded border border-amber-300 dark:border-amber-800/80 font-bold">
+                      Missing Waiting Clause
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-normal">
+                    National Care Indemnity • 2 Pages • Omitted Clause (Triggers UNCLEAR)
+                  </p>
+                </div>
+              </div>
+              <span className="text-xs text-slate-400 font-mono">13.6 KB</span>
+            </div>
+          </div>
+        ) : selectedFiles.length === 0 ? (
           <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-[#111726] text-center text-xs text-slate-400 dark:text-slate-500 font-normal">
             No policies uploaded yet. Drag files above or click the button below to test with demo policies.
           </div>
@@ -258,21 +334,31 @@ export const UploadPolicies: React.FC<UploadPoliciesProps> = ({
           className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#111726] hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-semibold shadow-2xs transition cursor-pointer"
         >
           <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-          <span>Try Preloaded Demo Policies</span>
+          <span>{isDemoMode ? "Reset Preloaded Demo" : "Try Preloaded Demo Policies"}</span>
         </button>
 
-        <button
-          onClick={handleAnalyzeClick}
-          disabled={selectedFiles.length < 2}
-          className={`w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4.5 py-2 rounded-lg font-semibold text-xs transition active:scale-98 cursor-pointer ${
-            selectedFiles.length >= 2
-              ? "bg-blue-600 hover:bg-blue-700 text-white shadow-xs"
-              : "bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed border border-transparent dark:border-slate-800"
-          }`}
-        >
-          <span>Analyze Policies ({selectedFiles.length})</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </button>
+        {isDemoMode && selectedFiles.length === 0 ? (
+          <button
+            onClick={onUseDemoData}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg font-semibold text-xs transition active:scale-98 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs"
+          >
+            <span>Run Comparison Audit (3 Policies)</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        ) : (
+          <button
+            onClick={handleAnalyzeClick}
+            disabled={selectedFiles.length < 2}
+            className={`w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4.5 py-2 rounded-lg font-semibold text-xs transition active:scale-98 cursor-pointer ${
+              selectedFiles.length >= 2
+                ? "bg-blue-600 hover:bg-blue-700 text-white shadow-xs"
+                : "bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed border border-transparent dark:border-slate-800"
+            }`}
+          >
+            <span>Analyze Policies ({selectedFiles.length})</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        )}
       </div>
     </div>
   );

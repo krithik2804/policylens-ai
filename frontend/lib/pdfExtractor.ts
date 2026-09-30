@@ -744,44 +744,26 @@ export function buildDynamicComparison(policies: PolicyExtraction[], userProfile
   const feature_matrix: FeatureMatrixRow[] = [
     {
       key: "coverage",
-      label: "Sum Insured (Coverage Limit)",
+      label: "Cover / Sum Insured",
       is_priority: priorities.includes("Coverage"),
       values: {},
     },
     {
       key: "waiting_period",
-      label: "Waiting Period (Pre-Existing / Initial)",
+      label: "Waiting Period",
       is_priority: priorities.includes("Waiting Period"),
       values: {},
     },
     {
-      key: "room_rent",
-      label: "Room Rent Capping",
-      is_priority: priorities.includes("Room Rent"),
-      values: {},
-    },
-    {
-      key: "copay",
-      label: "Co-Payment Requirement",
-      is_priority: priorities.includes("Co-Pay") || priorities.includes("Deductible"),
-      values: {},
-    },
-    {
-      key: "deductible",
-      label: "Mandatory Deductible",
-      is_priority: priorities.includes("Deductible"),
+      key: "exclusions",
+      label: "Major Exclusions",
+      is_priority: priorities.includes("Exclusions"),
       values: {},
     },
     {
       key: "premium",
-      label: "Annual Premium Estimate",
+      label: "Price Quote (Annual Premium)",
       is_priority: priorities.includes("Premium"),
-      values: {},
-    },
-    {
-      key: "exclusions",
-      label: "Notable Exclusions",
-      is_priority: priorities.includes("Exclusions"),
       values: {},
     },
   ];
@@ -798,30 +780,15 @@ export function buildDynamicComparison(policies: PolicyExtraction[], userProfile
       evidence: p.evidence_map?.waiting_period,
     };
     feature_matrix[2].values[p.id] = {
-      value: p.evidence_map?.room_rent?.value || "Single Private Room",
-      is_unclear: false,
-      evidence: p.evidence_map?.room_rent,
-    };
-    feature_matrix[3].values[p.id] = {
-      value: p.evidence_map?.copay?.value || "Nil (0%)",
-      is_unclear: false,
-      evidence: p.evidence_map?.copay,
-    };
-    feature_matrix[4].values[p.id] = {
-      value: p.deductible,
-      is_unclear: p.deductible === "UNCLEAR",
-      evidence: p.evidence_map?.deductible,
-    };
-    feature_matrix[5].values[p.id] = {
-      value: p.premium,
-      is_unclear: p.premium === "UNCLEAR",
-      evidence: p.evidence_map?.premium,
-    };
-    feature_matrix[6].values[p.id] = {
-      value: p.exclusions.slice(0, 3).join(", "),
+      value: p.exclusions.length > 0 ? `${p.exclusions.length} Key Exclusions` : "Standard Exclusions",
       is_unclear: false,
       items: p.exclusions,
       evidence: p.evidence_map?.exclusions,
+    };
+    feature_matrix[3].values[p.id] = {
+      value: p.premium,
+      is_unclear: p.premium === "UNCLEAR",
+      evidence: p.evidence_map?.premium,
     };
   });
 
