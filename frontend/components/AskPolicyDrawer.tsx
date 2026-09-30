@@ -71,7 +71,7 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
     setLoading(true);
 
     try {
-      const res: AskResponse = await askPolicyQuestion(selectedPolicyId, query);
+      const res: AskResponse = await askPolicyQuestion(selectedPolicyId, query, currentPolicy);
       const aiMsg: ChatMessage = {
         id: `ai_${Date.now()}`,
         sender: "ai",

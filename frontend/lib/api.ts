@@ -67,7 +67,8 @@ export async function comparePolicies(
 
 export async function askPolicyQuestion(
   policyId: string,
-  question: string
+  question: string,
+  policy?: PolicyExtraction
 ): Promise<AskResponse> {
   const res = await fetch(`${API_BASE}/api/ask`, {
     method: "POST",
@@ -75,6 +76,7 @@ export async function askPolicyQuestion(
     body: JSON.stringify({
       policy_id: policyId,
       question: question,
+      policy: policy,
     }),
   });
 

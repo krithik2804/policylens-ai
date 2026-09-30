@@ -12,7 +12,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onStartComparison, onV
   return (
     <div className="relative overflow-hidden py-8 sm:py-12 lg:py-16">
       {/* Background ambient accents - subtle pure black friendly */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-64 bg-gradient-to-b from-blue-500/10 via-transparent to-transparent pointer-events-none -z-10 blur-3xl" />
+      <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 pointer-events-none -z-10" />
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         {/* Top Feature Pill - Evidence Backed */}
@@ -24,21 +24,22 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onStartComparison, onV
         </div>
 
         {/* Refined Main Hero Title - Clear, Bold & Commanding */}
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight leading-[1.18] mb-4">
-          Understand your insurance policy <br className="hidden sm:inline" />
-          <span className="text-blue-600 dark:text-blue-400">before you pay.</span>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-white tracking-tight leading-[1.1] mb-4">
+          Decode your insurance policy instantly
+          <br className="hidden sm:inline" />
+          <span className="text-blue-600 dark:text-blue-400">Zero‑hallucination, evidence‑backed.</span>
         </h1>
 
         {/* Subtitle - Readable & Clear */}
-        <p className="max-w-2xl mx-auto text-base sm:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed font-normal mb-8">
-          Compare coverage limits, waiting periods, room rent caps, and hidden exclusions using verified verbatim quotes extracted directly from original policy contracts.
+        <p className="max-w-2xl mx-auto text-base sm:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed font-medium mb-8">
+          Instantly decode any insurance policy with zero‑hallucination, evidence‑backed insights.
         </p>
 
         {/* Call to Action Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-12">
           <button
             onClick={onStartComparison}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm sm:text-base shadow-md transition active:scale-95 cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm sm:text-base shadow-md transition transform hover:scale-105 active:scale-95 cursor-pointer"
           >
             <span>Compare Policies</span>
             <ArrowRight className="w-4 h-4" />
@@ -46,7 +47,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onStartComparison, onV
 
           <button
             onClick={onViewDemo}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5.5 py-3 rounded-xl bg-white hover:bg-neutral-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 font-semibold text-sm sm:text-base border border-neutral-300 dark:border-neutral-800 shadow-xs transition active:scale-95 cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5.5 py-3 rounded-xl bg-white hover:bg-neutral-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 font-semibold text-sm sm:text-base border border-neutral-300 dark:border-neutral-800 shadow-xs transform hover:scale-105 transition active:scale-95 cursor-pointer"
           >
             <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
             <span>Load 3 Demo Policies</span>
@@ -56,8 +57,8 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onStartComparison, onV
         {/* Interactive Feature Cards - Legible & Well Proportioned */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left max-w-4xl mx-auto">
           <div className="bg-white dark:bg-[#0a0a0a] p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-xs hover:border-neutral-300 dark:hover:border-neutral-700 transition">
-            <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-neutral-900 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-3">
-              <FileSearch className="w-4.5 h-4.5" />
+            <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-neutral-900 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-3">
+              <FileSearch className="w-5 h-5" />
             </div>
             <h3 className="font-bold text-neutral-900 dark:text-white text-sm sm:text-base mb-1.5">Verifiable Citations</h3>
             <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
@@ -66,8 +67,8 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onStartComparison, onV
           </div>
 
           <div className="bg-white dark:bg-[#0a0a0a] p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-xs hover:border-neutral-300 dark:hover:border-neutral-700 transition">
-            <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-neutral-900 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-3">
-              <AlertCircle className="w-4.5 h-4.5" />
+            <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-neutral-900 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-3">
+              <AlertCircle className="w-5 h-5" />
             </div>
             <div className="flex items-center gap-2 mb-1.5">
               <h3 className="font-bold text-neutral-900 dark:text-white text-sm sm:text-base">Strict UNCLEAR Rule</h3>
@@ -81,8 +82,8 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onStartComparison, onV
           </div>
 
           <div className="bg-white dark:bg-[#0a0a0a] p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-xs hover:border-neutral-300 dark:hover:border-neutral-700 transition">
-            <div className="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-neutral-900 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-3">
-              <Scale className="w-4.5 h-4.5" />
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-neutral-900 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-3">
+              <Scale className="w-5 h-5" />
             </div>
             <h3 className="font-bold text-neutral-900 dark:text-white text-sm sm:text-base mb-1.5">Side-by-Side Matrix</h3>
             <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">

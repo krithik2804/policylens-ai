@@ -4,10 +4,10 @@ import { POLICY_STORE } from "../upload/route";
 
 export async function POST(req: NextRequest) {
   try {
-    const { policy_id, question } = await req.json();
+    const { policy_id, question, policy: passedPolicy } = await req.json();
 
-    // Check in-memory store for custom policies, then DEMO_POLICIES
-    const policy = POLICY_STORE.get(policy_id) || DEMO_POLICIES.find((p) => p.id === policy_id) || DEMO_POLICIES[0];
+    // Check passed policy directly, then in-memory store, then DEMO_POLICIES
+    const policy = passedPolicy || POLICY_STORE.get(policy_id) || DEMO_POLICIES.find((p) => p.id === policy_id) || DEMO_POLICIES[0];
     const qLower = (question || "").toLowerCase();
 
     // 1. Waiting period question

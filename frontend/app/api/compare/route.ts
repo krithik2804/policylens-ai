@@ -16,26 +16,29 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Try forwarding to local FastAPI backend if reachable
-    const backendUrl = process.env.BACKEND_URL || "http://localhost:8000";
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 2500);
+    // Try forwarding to local FastAPI backend if reachable in local dev
+    const isVercel = !!process.env.VERCEL;
+    const backendUrl = process.env.BACKEND_URL || (!isVercel && process.env.NODE_ENV === "development" ? "http://localhost:8000" : undefined);
+    if (backendUrl) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1200);
 
-      const backendRes = await fetch(`${backendUrl}/api/compare`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ policy_ids, user_profile }),
-        signal: controller.signal,
-      });
-      clearTimeout(timeoutId);
+        const backendRes = await fetch(`${backendUrl}/api/compare`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ policy_ids, user_profile }),
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
 
-      if (backendRes.ok) {
-        const data = await backendRes.json();
-        return NextResponse.json(data);
+        if (backendRes.ok) {
+          const data = await backendRes.json();
+          return NextResponse.json(data);
+        }
+      } catch {
+        // Backend not running -> Process locally
       }
-    } catch {
-      // Backend not running -> Process locally
     }
 
     // 1. Check if policies were directly passed in the payload

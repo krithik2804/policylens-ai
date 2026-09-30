@@ -96,6 +96,14 @@ export default function Home() {
 
   const [isAskDrawerOpen, setIsAskDrawerOpen] = useState<boolean>(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [analysisAnimDone, setAnalysisAnimDone] = useState<boolean>(false);
+
+  // Transition to comparison as soon as both data and animation are ready
+  useEffect(() => {
+    if (currentStep === "analysis" && analysisAnimDone && compareData) {
+      setCurrentStep("comparison");
+    }
+  }, [currentStep, analysisAnimDone, compareData]);
 
   // Quick Reset to Home
   const handleReset = () => {
@@ -103,11 +111,13 @@ export default function Home() {
     setCompareData(null);
     setStagedFiles([]);
     setUploadError(null);
+    setAnalysisAnimDone(false);
   };
 
   // Trigger Demo Mode directly
   const handleTriggerDemo = async () => {
     setUploadError(null);
+    setAnalysisAnimDone(false);
     setPolicyNames([
       "Policy A: SecureCare Essential",
       "Policy B: HealthShield Student Plus",
@@ -126,6 +136,7 @@ export default function Home() {
   // Start regular flow from hero
   const handleStartComparison = () => {
     setUploadError(null);
+    setAnalysisAnimDone(false);
     setCurrentStep("questions");
   };
 
@@ -133,6 +144,7 @@ export default function Home() {
   const handleQuestionsComplete = (profile: UserProfile) => {
     setUserProfile(profile);
     setUploadError(null);
+    setAnalysisAnimDone(false);
     setCurrentStep("upload");
   };
 
@@ -140,6 +152,7 @@ export default function Home() {
   const handleStartAnalysis = async (files: File[]) => {
     setStagedFiles(files);
     setUploadError(null);
+    setAnalysisAnimDone(false);
     setPolicyNames(files.map((f, i) => `Policy ${String.fromCharCode(65 + i)}: ${f.name.replace(/\.pdf$/i, "").replace(/[-_]/g, " ")}`));
     setCurrentStep("analysis");
 
@@ -161,8 +174,9 @@ export default function Home() {
     }
   };
 
-  // Step 3: Analysis complete callback - NEVER fallback to demo data if upload failed
+  // Step 3: Analysis complete callback
   const handleAnalysisComplete = () => {
+    setAnalysisAnimDone(true);
     if (compareData) {
       setCurrentStep("comparison");
     }
