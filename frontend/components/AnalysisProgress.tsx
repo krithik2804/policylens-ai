@@ -124,41 +124,41 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
   }, [logs]);
 
   // SVG Circular progress math
-  const radius = 38;
+  const radius = 32;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (progressPercent / 100) * circumference;
 
   return (
-    <div className="relative max-w-4xl mx-auto px-4 py-8 sm:py-12">
+    <div className="relative max-w-3xl mx-auto px-4 py-5 sm:py-8">
       {/* Background ambient accents */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/15 dark:bg-blue-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute bottom-10 left-1/3 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-600/10 dark:bg-blue-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute bottom-10 left-1/3 w-72 h-72 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
       {/* Main Glassmorphic Panel */}
-      <div className="relative backdrop-blur-2xl bg-white/80 dark:bg-[#111726]/90 border border-white/40 dark:border-slate-800 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_30px_90px_-20px_rgba(0,0,0,0.7)] rounded-3xl overflow-hidden p-6 sm:p-8">
+      <div className="relative backdrop-blur-xl bg-white/90 dark:bg-[#111726]/90 border border-slate-200 dark:border-slate-800 shadow-xl rounded-2xl overflow-hidden p-5 sm:p-6">
         
         {/* Top Header: Radial Progress & Stage Title */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 mb-6 border-b border-slate-200/80 dark:border-slate-800">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 mb-4 border-b border-slate-200/80 dark:border-slate-800">
           
-          <div className="flex items-center gap-4 text-left">
+          <div className="flex items-center gap-3.5 text-left">
             {/* SVG Circular Progress Ring */}
-            <div className="relative w-22 h-22 shrink-0 flex items-center justify-center">
-              <svg className="w-full h-full -rotate-90" viewBox="0 0 90 90">
+            <div className="relative w-16 h-16 shrink-0 flex items-center justify-center">
+              <svg className="w-full h-full -rotate-90" viewBox="0 0 80 80">
                 <circle
-                  cx="45"
-                  cy="45"
+                  cx="40"
+                  cy="40"
                   r={radius}
                   stroke="currentColor"
-                  strokeWidth="6"
+                  strokeWidth="5"
                   className="text-neutral-200 dark:text-neutral-800/80"
                   fill="transparent"
                 />
                 <circle
-                  cx="45"
-                  cy="45"
+                  cx="40"
+                  cy="40"
                   r={radius}
                   stroke="url(#progressGradient)"
-                  strokeWidth="6"
+                  strokeWidth="5"
                   strokeDasharray={circumference}
                   strokeDashoffset={strokeDashoffset}
                   strokeLinecap="round"
@@ -173,44 +173,44 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
                 </defs>
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-base font-extrabold text-neutral-900 dark:text-white font-mono">
+                <span className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white font-mono">
                   {progressPercent}%
                 </span>
-                <span className="text-[9px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-tighter">
+                <span className="text-[8px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-tighter">
                   Audited
                 </span>
               </div>
             </div>
 
             <div>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 text-blue-700 dark:text-blue-400 text-xs font-semibold mb-1">
-                <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 animate-pulse" />
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/60 text-blue-700 dark:text-blue-400 text-[10px] font-medium mb-0.5">
+                <Sparkles className="w-3 h-3 text-blue-600 dark:text-blue-400 animate-pulse" />
                 <span>Zero-Hallucination Neural Extraction</span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
+              <h2 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white tracking-tight">
                 {isFinished ? "Auditing Complete" : "Auditing Insurance Contracts"}
               </h2>
-              <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
+              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
                 Isolating coverage rules, waiting periods &amp; exclusions backed by exact sentence quotes.
               </p>
             </div>
           </div>
 
           {/* Quick Metrics Badges */}
-          <div className="flex sm:flex-col items-center sm:items-end gap-2 shrink-0">
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 text-emerald-700 dark:text-emerald-400 text-xs font-semibold">
-              <ShieldCheck className="w-3.5 h-3.5" />
+          <div className="flex sm:flex-col items-center sm:items-end gap-1.5 shrink-0">
+            <div className="flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900/50 text-emerald-700 dark:text-emerald-400 text-[10px] sm:text-[11px] font-semibold">
+              <ShieldCheck className="w-3 h-3" />
               <span>100% Verbatim Grounding</span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 text-xs font-medium">
-              <Cpu className="w-3.5 h-3.5 text-blue-500" />
+            <div className="flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] sm:text-[11px] font-medium">
+              <Cpu className="w-3 h-3 text-blue-500" />
               <span>Scanning {policyCount} Documents</span>
             </div>
           </div>
         </div>
 
         {/* Dynamic Holographic Document Scanner Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
           {Array.from({ length: policyCount }).map((_, pIdx) => {
             const letter = String.fromCharCode(65 + pIdx);
             const polName = (policyNames && policyNames[pIdx]) ? policyNames[pIdx] : `Policy ${letter}`;
@@ -220,81 +220,80 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
             return (
               <div
                 key={pIdx}
-                className={`relative rounded-2xl p-4 transition-all duration-300 overflow-hidden border backdrop-blur-md ${
+                className={`relative rounded-xl p-3 transition-all duration-300 overflow-hidden border backdrop-blur-md ${
                   isCurrentPolicy
-                    ? "bg-gradient-to-b from-blue-50/90 to-white/90 dark:from-blue-950/20 dark:to-slate-900/60 border-blue-400 dark:border-blue-700 shadow-md ring-1 ring-blue-500/20"
+                    ? "bg-gradient-to-b from-blue-50/90 to-white/90 dark:from-blue-950/20 dark:to-slate-900/60 border-blue-400 dark:border-blue-700 shadow-sm ring-1 ring-blue-500/20"
                     : isCompletedPolicy
-                    ? "bg-slate-50/80 dark:bg-[#151d2f] border-slate-200 dark:border-slate-800 shadow-xs"
+                    ? "bg-slate-50/80 dark:bg-[#151d2f] border-slate-200 dark:border-slate-800 shadow-2xs"
                     : "bg-white/40 dark:bg-slate-900/20 border-slate-200/50 dark:border-slate-800/40 opacity-40"
                 }`}
               >
                 {/* Active Laser Scanning Radar Line */}
                 {isCurrentPolicy && (
-                  <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent animate-scan-line pointer-events-none z-10 shadow-[0_0_10px_#3b82f6]" />
+                  <div className="absolute left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-blue-500 to-transparent animate-scan-line pointer-events-none z-10 shadow-[0_0_8px_#3b82f6]" />
                 )}
 
                 {/* Card Header */}
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center justify-between gap-1.5 mb-2">
+                  <div className="flex items-center gap-1.5">
                     <div
-                      className={`w-7 h-7 rounded-lg text-xs font-bold flex items-center justify-center transition-colors ${
+                      className={`w-6 h-6 rounded-md text-[11px] font-bold flex items-center justify-center transition-colors ${
                         isCompletedPolicy
-                          ? "bg-emerald-600 text-white shadow-2xs"
+                          ? "bg-emerald-600 text-white"
                           : isCurrentPolicy
-                          ? "bg-blue-600 text-white shadow-xs animate-pulse"
+                          ? "bg-blue-600 text-white animate-pulse"
                           : "bg-neutral-200 dark:bg-neutral-800 text-neutral-500"
                       }`}
                     >
                       {letter}
                     </div>
                     <div className="leading-tight">
-                      <span className="text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider block">
+                      <span className="text-[9px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider block">
                         Contract {letter}
                       </span>
-                      <h4 className="font-bold text-xs sm:text-sm text-neutral-900 dark:text-white truncate max-w-[150px] sm:max-w-[170px]">
+                      <h4 className="font-semibold text-xs text-neutral-900 dark:text-white truncate max-w-[130px] sm:max-w-[150px]">
                         {polName.replace(/^Policy [A-Z]:\s*/i, "")}
                       </h4>
                     </div>
                   </div>
 
                   {isCompletedPolicy ? (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-900/60">
-                      <CheckCircle2 className="w-3 h-3" />
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.5 rounded border border-emerald-200 dark:border-emerald-900/60">
+                      <CheckCircle2 className="w-2.5 h-2.5" />
                       Grounded
                     </span>
                   ) : isCurrentPolicy ? (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-2 py-0.5 rounded border border-blue-200 dark:border-blue-900/60">
-                      <Layers className="w-3 h-3 animate-spin" />
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-1.5 py-0.5 rounded border border-blue-200 dark:border-blue-900/60">
+                      <Layers className="w-2.5 h-2.5 animate-spin" />
                       Auditing
                     </span>
                   ) : (
-                    <span className="text-[10px] font-medium text-neutral-400 dark:text-neutral-600">
+                    <span className="text-[9px] font-medium text-neutral-400 dark:text-neutral-600">
                       Queued
                     </span>
                   )}
                 </div>
 
                 {/* Simulated Contract Page Skeleton Lines */}
-                <div className="space-y-1.5 p-2.5 rounded-xl bg-neutral-100/60 dark:bg-neutral-900/60 border border-neutral-200/50 dark:border-neutral-800/50 mb-3">
+                <div className="space-y-1 p-2 rounded-lg bg-neutral-100/60 dark:bg-neutral-900/60 border border-neutral-200/50 dark:border-neutral-800/50 mb-2">
                   <div className="flex items-center justify-between">
-                    <div className="h-1.5 bg-neutral-300 dark:bg-neutral-700 rounded w-1/3" />
-                    <div className="h-1.5 bg-neutral-200 dark:bg-neutral-800 rounded w-1/5" />
+                    <div className="h-1 bg-neutral-300 dark:bg-neutral-700 rounded w-1/3" />
+                    <div className="h-1 bg-neutral-200 dark:bg-neutral-800 rounded w-1/5" />
                   </div>
                   <div className="h-1 bg-neutral-200 dark:bg-neutral-800 rounded w-4/5" />
                   <div className="h-1 bg-neutral-200 dark:bg-neutral-800 rounded w-2/3" />
-                  <div className="h-1 bg-neutral-200 dark:bg-neutral-800 rounded w-3/4" />
                 </div>
 
                 {/* Current Clause Badge */}
-                <div className="text-[11px]">
+                <div className="text-[10px] sm:text-[11px]">
                   {isCompletedPolicy ? (
-                    <div className="text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5 font-medium">
-                      <FileCheck className="w-3.5 h-3.5" />
+                    <div className="text-emerald-700 dark:text-emerald-400 flex items-center gap-1 font-medium">
+                      <FileCheck className="w-3 h-3" />
                       <span>All clauses matched with page citations</span>
                     </div>
                   ) : isCurrentPolicy ? (
-                    <div className="text-blue-700 dark:text-blue-400 flex items-center gap-1.5 font-semibold">
-                      <span className="w-2 h-2 rounded-full bg-blue-500 animate-ping shrink-0" />
+                    <div className="text-blue-700 dark:text-blue-400 flex items-center gap-1 font-semibold">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping shrink-0" />
                       <span className="truncate">
                         Checking {AUDIT_CLAUSES[Math.min(activeClauseIdx, AUDIT_CLAUSES.length - 1)]?.clause}
                       </span>
@@ -311,17 +310,17 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
         </div>
 
         {/* Live Extraction Stream Telemetry Terminal */}
-        <div className="rounded-2xl bg-neutral-950 border border-neutral-800/80 shadow-inner overflow-hidden text-left">
+        <div className="rounded-xl bg-neutral-950 border border-neutral-800 shadow-inner overflow-hidden text-left">
           {/* Terminal Window Top Bar */}
-          <div className="px-4 py-2.5 bg-neutral-900/90 border-b border-neutral-800 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Terminal className="w-3.5 h-3.5 text-blue-400" />
-              <span className="text-xs font-mono font-semibold text-neutral-300">
+          <div className="px-3 py-1.5 bg-neutral-900/90 border-b border-neutral-800 flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <Terminal className="w-3 h-3 text-blue-400" />
+              <span className="text-[11px] font-mono font-medium text-neutral-300">
                 Extraction Telemetry Stream
               </span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-400">
+            <div className="flex items-center gap-1.5">
+              <span className="inline-flex items-center gap-1 text-[9px] font-mono text-emerald-400">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 Live OCR Stream
               </span>
@@ -329,7 +328,7 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
           </div>
 
           {/* Terminal Content Feed */}
-          <div className="p-4 h-40 overflow-y-auto font-mono text-xs text-neutral-300 space-y-1.5 scrollbar-thin">
+          <div className="p-3 h-30 overflow-y-auto font-mono text-[10px] sm:text-[11px] text-neutral-300 space-y-1 scrollbar-thin">
             {logs.map((log, idx) => {
               const isUnclear = log.includes("UNCLEAR");
               const isFinishedLog = log.includes("finalized") || log.includes("complete");
@@ -337,7 +336,7 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
               return (
                 <div
                   key={idx}
-                  className={`leading-relaxed text-[11px] sm:text-xs transition-opacity duration-200 ${
+                  className={`leading-relaxed transition-opacity duration-200 ${
                     isUnclear
                       ? "text-amber-400 font-semibold"
                       : isFinishedLog
@@ -356,9 +355,9 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
         </div>
 
         {/* Bottom Rule Guarantee */}
-        <div className="mt-5 pt-4 border-t border-neutral-200/80 dark:border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-neutral-500 dark:text-neutral-400">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+        <div className="mt-4 pt-3 border-t border-neutral-200/80 dark:border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-1.5 text-[11px] text-neutral-500 dark:text-neutral-400">
+          <div className="flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             <span className="font-semibold text-neutral-700 dark:text-neutral-300">
               IRDAI Compliance &amp; Strict Evidence Standard:
             </span>
@@ -366,7 +365,7 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
           </div>
 
           {isFinished && (
-            <div className="font-bold text-blue-600 dark:text-blue-400 animate-pulse text-xs">
+            <div className="font-bold text-blue-600 dark:text-blue-400 animate-pulse text-[11px]">
               Opening Comparison Dashboard...
             </div>
           )}

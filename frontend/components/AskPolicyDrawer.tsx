@@ -100,45 +100,45 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
   return (
     <div className="fixed inset-y-0 right-0 z-50 w-full max-w-sm sm:max-w-md bg-white dark:bg-[#111726] border-l border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col animate-in slide-in-from-right duration-200">
       {/* Drawer Header */}
-      <div className="px-4 py-3.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151d2f] flex items-center justify-between">
+      <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151d2f] flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 flex items-center justify-center">
-            <MessageSquare className="w-4 h-4" />
+          <div className="w-7 h-7 rounded-lg bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 flex items-center justify-center">
+            <MessageSquare className="w-3.5 h-3.5" />
           </div>
           <div>
-            <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">Ask PolicyLens AI</h3>
-            <p className="text-xs text-slate-500 font-medium">Grounded policy Q&amp;A with citations</p>
+            <h3 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100">Ask PolicyLens AI</h3>
+            <p className="text-[10px] text-slate-500 font-normal">Grounded policy Q&amp;A with citations</p>
           </div>
         </div>
         <button
           onClick={onClose}
-          className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition cursor-pointer"
+          className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
       </div>
 
       {/* Policy Selector Pills */}
-      <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-[#111726]">
-        <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">
+      <div className="px-4 py-2.5 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-[#111726]">
+        <div className="text-[9px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
           Select Document
         </div>
-        <div className="flex items-center gap-2 overflow-x-auto pb-0.5">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5">
           {policies.map((p) => {
             const isSelected = p.id === selectedPolicyId;
             return (
               <button
                 key={p.id}
                 onClick={() => setSelectedPolicyId(p.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition flex items-center gap-1.5 cursor-pointer ${
+                className={`px-2.5 py-1 rounded-md text-xs font-semibold whitespace-nowrap transition flex items-center gap-1.5 cursor-pointer ${
                   isSelected
-                    ? "bg-blue-600 text-white shadow-xs"
+                    ? "bg-blue-600 text-white shadow-2xs"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                 }`}
               >
                 <span className="truncate max-w-[120px]">{p.name.split(" ")[0]}</span>
                 {p.waiting_period === "UNCLEAR" && (
-                  <span className="text-[9px] bg-amber-400 text-black font-black px-1.5 py-0.2 rounded">
+                  <span className="text-[9px] bg-amber-400 text-black font-bold px-1 rounded">
                     UNCLEAR
                   </span>
                 )}
@@ -149,7 +149,7 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
       </div>
 
       {/* Chat Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50/50 dark:bg-[#0b0f19]">
+      <div className="flex-1 overflow-y-auto p-3.5 space-y-2.5 bg-slate-50/50 dark:bg-[#0b0f19]">
         {messages.map((m) => {
           const isUser = m.sender === "user";
           return (
@@ -158,10 +158,10 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
               className={`flex flex-col ${isUser ? "items-end" : "items-start"}`}
             >
               <div
-                className={`max-w-[85%] rounded-xl p-3.5 text-xs sm:text-[13px] leading-relaxed ${
+                className={`max-w-[85%] rounded-xl p-3 text-xs leading-relaxed ${
                   isUser
-                    ? "bg-blue-600 text-white font-medium rounded-br-xs"
-                    : "bg-white dark:bg-[#151d2f] text-slate-800 dark:text-slate-100 font-medium border border-slate-200 dark:border-slate-800 rounded-bl-xs shadow-2xs"
+                    ? "bg-blue-600 text-white font-normal rounded-br-xs"
+                    : "bg-white dark:bg-[#151d2f] text-slate-800 dark:text-slate-200 font-normal border border-slate-200 dark:border-slate-800 rounded-bl-xs shadow-2xs"
                 }`}
               >
                 <p>{m.text}</p>
