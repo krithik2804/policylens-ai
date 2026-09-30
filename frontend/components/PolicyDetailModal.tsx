@@ -28,15 +28,15 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
         <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/80 dark:bg-[#151d2f]">
           <div>
             <div className="flex items-center gap-2 mb-0.5">
-              <span className="text-[10px] font-semibold text-blue-700 dark:text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-slate-800 px-2 py-0.5 rounded border border-blue-200 dark:border-slate-700">
+              <span className="text-[10px] font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-slate-800 px-2 py-0.5 rounded border border-blue-200 dark:border-slate-700">
                 Policy Overview
               </span>
               <span className="text-[10px] text-slate-400 font-mono truncate max-w-[200px]">
                 {policy.filename}
               </span>
             </div>
-            <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">{policy.name}</h2>
-            <p className="text-[11px] text-slate-500 font-medium">{policy.insurer} • {policy.type}</p>
+            <h2 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">{policy.name}</h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold">{policy.insurer} • {policy.type}</p>
           </div>
           <button
             onClick={onClose}
@@ -47,67 +47,67 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
         </div>
 
         {/* Content Body */}
-        <div className="p-5 space-y-4 overflow-y-auto">
+        <div className="p-5 sm:p-6 space-y-5 overflow-y-auto">
           {/* Key Metrics Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-            <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151d2f]">
-              <div className="text-[10px] font-semibold text-slate-400 uppercase">Coverage</div>
-              <div className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-0.5">{policy.coverage}</div>
-              <div className="text-[9px] text-slate-500 mt-0.5">Sum Insured</div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151d2f]">
+              <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Coverage</div>
+              <div className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white mt-1">{policy.coverage}</div>
+              <div className="text-[10px] text-slate-500 font-medium mt-0.5">Sum Insured</div>
             </div>
 
-            <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151d2f]">
-              <div className="text-[10px] font-semibold text-slate-400 uppercase">Annual Premium</div>
-              <div className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-0.5">{policy.premium}</div>
-              <div className="text-[9px] text-slate-500 mt-0.5">Estimated Cost</div>
+            <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151d2f]">
+              <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Annual Premium</div>
+              <div className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white mt-1">{policy.premium}</div>
+              <div className="text-[10px] text-slate-500 font-medium mt-0.5">Estimated Cost</div>
             </div>
 
             <div
-              className={`p-3 rounded-lg border ${
+              className={`p-3.5 rounded-xl border ${
                 isWaitingPeriodUnclear
-                  ? "border-amber-300 dark:border-amber-800/80 bg-amber-50/60 dark:bg-amber-950/40 text-amber-900 dark:text-amber-200"
+                  ? "border-amber-300 dark:border-amber-700/80 bg-amber-50 dark:bg-amber-950/50 text-amber-900 dark:text-amber-200"
                   : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151d2f]"
               }`}
             >
-              <div className="text-[10px] font-semibold uppercase flex items-center justify-between">
+              <div className="text-[10px] font-bold uppercase tracking-wider flex items-center justify-between">
                 <span>Waiting Period</span>
-                {isWaitingPeriodUnclear && <AlertTriangle className="w-3 h-3 text-amber-600" />}
+                {isWaitingPeriodUnclear && <AlertTriangle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />}
               </div>
               <div
-                className={`text-xs font-bold mt-0.5 ${
-                  isWaitingPeriodUnclear ? "text-amber-800 dark:text-amber-400 font-mono" : "text-slate-900 dark:text-slate-100"
+                className={`text-sm sm:text-base font-extrabold mt-1 ${
+                  isWaitingPeriodUnclear ? "text-amber-900 dark:text-amber-300 font-mono" : "text-slate-900 dark:text-white"
                 }`}
               >
                 {policy.waiting_period}
               </div>
-              <div className="text-[9px] text-slate-500 mt-0.5">Initial / PED</div>
+              <div className="text-[10px] text-slate-500 font-medium mt-0.5">Initial / PED</div>
             </div>
 
-            <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151d2f]">
-              <div className="text-[10px] font-semibold text-slate-400 uppercase">Deductible</div>
-              <div className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-0.5">{policy.deductible}</div>
-              <div className="text-[9px] text-slate-500 mt-0.5">Per Claim / Co-pay</div>
+            <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151d2f]">
+              <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Deductible</div>
+              <div className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white mt-1">{policy.deductible}</div>
+              <div className="text-[10px] text-slate-500 font-medium mt-0.5">Per Claim / Co-pay</div>
             </div>
           </div>
 
           {/* Major Exclusions Breakdown */}
           {policy.major_exclusions_detailed && policy.major_exclusions_detailed.length > 0 && (
             <div>
-              <h3 className="text-xs font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                <FileText className="w-3.5 h-3.5 text-blue-600" />
+              <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <FileText className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                 <span>Major Exclusions with Citations</span>
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 {policy.major_exclusions_detailed.map((exc, idx) => (
                   <div
                     key={idx}
-                    className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-[#151d2f] text-xs"
+                    className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-[#151d2f] text-xs"
                   >
-                    <div className="flex items-center justify-between font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                    <div className="flex items-center justify-between font-bold text-slate-900 dark:text-white mb-1.5 text-xs sm:text-sm">
                       <span>{exc.item}</span>
                       <button
                         onClick={() => onOpenPdf(policy.id, exc.page)}
-                        className="text-[10px] font-mono text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer"
+                        className="text-xs font-mono font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer"
                       >
                         <span>Page {exc.page}</span>
                         <BookOpen className="w-2.5 h-2.5" />
