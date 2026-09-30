@@ -210,7 +210,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] dark:bg-black flex flex-col text-neutral-900 dark:text-neutral-100 font-sans selection:bg-blue-500/20 selection:text-blue-600 transition-colors duration-200">
+    <div className="min-h-screen bg-[#f8fafc] dark:bg-[#0b0f19] flex flex-col text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-500/20 selection:text-blue-600 transition-colors duration-200">
       {/* Top Navigation with Theme Switcher */}
       <Navbar
         currentStep={currentStep}
@@ -313,12 +313,12 @@ export default function Home() {
       )}
 
       {/* Footer */}
-      <footer className="border-t border-neutral-200 dark:border-neutral-800/80 bg-white dark:bg-black py-5 text-center text-xs text-neutral-500 dark:text-neutral-400 transition-colors">
+      <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f172a] py-5 text-center text-xs text-slate-500 dark:text-slate-400 transition-colors">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2.5">
           <p>
-            © {new Date().getFullYear()} <strong className="text-neutral-700 dark:text-neutral-200">PolicyLens AI</strong> — Hackathon Prototype.
+            © {new Date().getFullYear()} <strong className="text-slate-700 dark:text-slate-200">PolicyLens AI</strong> — Hackathon Prototype.
           </p>
-          <p className="text-neutral-400 dark:text-neutral-500 text-[11px]">
+          <p className="text-slate-400 dark:text-slate-500 text-[11px]">
             Educational comparison tool — not insurance advice, a quotation, or a licensed insurance sale.
           </p>
         </div>

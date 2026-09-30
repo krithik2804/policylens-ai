@@ -135,10 +135,10 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
       <div className="absolute bottom-10 left-1/3 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
       {/* Main Glassmorphic Panel */}
-      <div className="relative backdrop-blur-2xl bg-white/80 dark:bg-[#0a0a0a]/90 border border-white/40 dark:border-neutral-800 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_30px_90px_-20px_rgba(0,0,0,0.95)] rounded-3xl overflow-hidden p-6 sm:p-8">
+      <div className="relative backdrop-blur-2xl bg-white/80 dark:bg-[#111726]/90 border border-white/40 dark:border-slate-800 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_30px_90px_-20px_rgba(0,0,0,0.7)] rounded-3xl overflow-hidden p-6 sm:p-8">
         
         {/* Top Header: Radial Progress & Stage Title */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 mb-6 border-b border-neutral-200/80 dark:border-neutral-800">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 mb-6 border-b border-slate-200/80 dark:border-slate-800">
           
           <div className="flex items-center gap-4 text-left">
             {/* SVG Circular Progress Ring */}
@@ -222,10 +222,10 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
                 key={pIdx}
                 className={`relative rounded-2xl p-4 transition-all duration-300 overflow-hidden border backdrop-blur-md ${
                   isCurrentPolicy
-                    ? "bg-gradient-to-b from-blue-50/90 to-white/90 dark:from-blue-950/20 dark:to-neutral-900/60 border-blue-400 dark:border-blue-700 shadow-md ring-1 ring-blue-500/20"
+                    ? "bg-gradient-to-b from-blue-50/90 to-white/90 dark:from-blue-950/20 dark:to-slate-900/60 border-blue-400 dark:border-blue-700 shadow-md ring-1 ring-blue-500/20"
                     : isCompletedPolicy
-                    ? "bg-neutral-50/80 dark:bg-black/60 border-neutral-200 dark:border-neutral-800 shadow-xs"
-                    : "bg-white/40 dark:bg-neutral-900/20 border-neutral-200/50 dark:border-neutral-800/40 opacity-40"
+                    ? "bg-slate-50/80 dark:bg-[#151d2f] border-slate-200 dark:border-slate-800 shadow-xs"
+                    : "bg-white/40 dark:bg-slate-900/20 border-slate-200/50 dark:border-slate-800/40 opacity-40"
                 }`}
               >
                 {/* Active Laser Scanning Radar Line */}
