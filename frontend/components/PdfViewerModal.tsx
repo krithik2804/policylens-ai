@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { X, ExternalLink, BookOpen } from "lucide-react";
@@ -37,11 +37,11 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
                 <span className="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100">
                   {policyName || "Policy Contract PDF"}
                 </span>
-                <span className="text-[10px] font-semibold bg-blue-50 dark:bg-slate-800 text-blue-700 dark:text-blue-300 px-1.5 py-0.2 rounded border border-blue-200 dark:border-slate-700">
+                <span className="text-xs font-semibold bg-blue-50 dark:bg-slate-800 text-blue-700 dark:text-blue-300 px-1.5 py-0.2 rounded border border-blue-200 dark:border-slate-700">
                   Page {page} Target
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500">
+              <p className="text-xs text-slate-500">
                 Ground-truth contract document parsed by PolicyLens
               </p>
             </div>
@@ -76,9 +76,9 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-5 py-2 bg-slate-50 dark:bg-[#151d2f] border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500">
+        <div className="px-5 py-2 bg-slate-50 dark:bg-[#151d2f] border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500">
           <span>Verifying contract clauses directly in the original PDF.</span>
-          <span className="font-mono text-[10px] font-semibold text-slate-700 dark:text-slate-300">PolicyLens Grounding Guard</span>
+          <span className="font-mono text-xs font-semibold text-slate-700 dark:text-slate-300">PolicyLens Grounding Guard</span>
         </div>
       </div>
     </div>

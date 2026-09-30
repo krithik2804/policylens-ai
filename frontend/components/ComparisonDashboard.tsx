@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { CompareResponse, PolicyExtraction } from "../types";
@@ -45,7 +45,7 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 pb-4 border-b border-slate-200 dark:border-slate-800">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-slate-800 px-2 py-0.5 rounded border border-blue-200 dark:border-slate-700 uppercase tracking-wider">
+            <span className="text-xs font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-slate-800 px-2 py-0.5 rounded border border-blue-200 dark:border-slate-700 uppercase tracking-wider">
               Comparison Active
             </span>
             <span className="text-xs text-slate-500 dark:text-slate-400">
@@ -89,21 +89,21 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
               <Sparkles className="w-3.5 h-3.5" />
             </div>
             <div>
-              <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+              <div className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                 Profile Focus
               </div>
               <div className="text-xs text-slate-700 dark:text-slate-300">
-                Beneficiary: <strong className="text-slate-900 dark:text-slate-100 font-semibold">{user_profile.customer_type}</strong> • Budget:{" "}
+                Beneficiary: <strong className="text-slate-900 dark:text-slate-100 font-semibold">{user_profile.customer_type}</strong> â€¢ Budget:{" "}
                 <strong className="text-slate-900 dark:text-slate-100 font-semibold">{user_profile.budget}</strong>
               </div>
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-semibold mr-1">Priorities:</span>
+            <span className="text-xs text-slate-400 dark:text-slate-500 uppercase font-semibold mr-1">Priorities:</span>
             {user_profile.priorities.map((p) => (
               <span
                 key={p}
-                className="text-[10px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700"
+                className="text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700"
               >
                 {p}
               </span>
@@ -129,16 +129,16 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
                     <span className="w-6 h-6 rounded-md bg-slate-900 dark:bg-slate-800 text-white font-bold text-xs flex items-center justify-center">
                       {letter}
                     </span>
-                    <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                       Policy {letter}
                     </span>
                   </div>
                   {p.is_demo ? (
-                    <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
+                    <span className="text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
                       Demo Document
                     </span>
                   ) : (
-                    <span className="text-[10px] font-medium text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800/60">
+                    <span className="text-xs font-medium text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800/60">
                       Uploaded PDF
                     </span>
                   )}
@@ -147,27 +147,27 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
                 <h3 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100 line-clamp-1 mb-0.5" title={p.name}>
                   {p.name}
                 </h3>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mb-2.5">{p.insurer}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1 mb-2.5">{p.insurer}</p>
 
                 {/* Quick stats mini-grid */}
                 <div className="grid grid-cols-2 gap-2 p-2.5 rounded-lg bg-slate-50 dark:bg-[#151d2f] border border-slate-100 dark:border-slate-800 text-xs mb-2.5">
                   <div>
-                    <span className="text-[9px] text-slate-400 dark:text-slate-500 block uppercase font-semibold tracking-wider">Sum Insured</span>
-                    <span className="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-[13px]">{p.coverage}</span>
+                    <span className="text-xs text-slate-400 dark:text-slate-500 block uppercase font-semibold tracking-wider">Sum Insured</span>
+                    <span className="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-sm">{p.coverage}</span>
                   </div>
                   <div>
-                    <span className="text-[9px] text-slate-400 dark:text-slate-500 block uppercase font-semibold tracking-wider">Annual Premium</span>
-                    <span className="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-[13px]">{p.premium}</span>
+                    <span className="text-xs text-slate-400 dark:text-slate-500 block uppercase font-semibold tracking-wider">Annual Premium</span>
+                    <span className="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-sm">{p.premium}</span>
                   </div>
                   <div className="col-span-2 pt-2 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between">
-                    <span className="text-[9px] text-slate-400 dark:text-slate-500 uppercase font-semibold tracking-wider">Waiting Period</span>
+                    <span className="text-xs text-slate-400 dark:text-slate-500 uppercase font-semibold tracking-wider">Waiting Period</span>
                     {isWaitingUnclear ? (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-800 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded border border-amber-300 dark:border-amber-800/80">
+                      <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-800 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded border border-amber-300 dark:border-amber-800/80">
                         <AlertTriangle className="w-3 h-3 text-amber-600 dark:text-amber-400" />
                         UNCLEAR
                       </span>
                     ) : (
-                      <span className="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-[13px]">{p.waiting_period}</span>
+                      <span className="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-sm">{p.waiting_period}</span>
                     )}
                   </div>
                 </div>
@@ -199,11 +199,11 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
         <div className="p-3.5 sm:p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-[#151d2f] flex items-center justify-between">
           <div>
             <h2 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">Side-by-Side Contract Comparison</h2>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               Click any value to inspect exact PDF quotation and page number.
             </p>
           </div>
-          <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono hidden sm:block uppercase tracking-wider">
+          <div className="text-xs text-slate-400 dark:text-slate-500 font-mono hidden sm:block uppercase tracking-wider">
             Evidence-Backed Matrix
           </div>
         </div>
@@ -211,12 +211,12 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 text-[11px] uppercase tracking-wider">
+              <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 text-xs uppercase tracking-wider">
                 <th className="py-2.5 px-3 sm:px-4 font-bold w-1/4">Contract Feature</th>
                 {policies.map((p, idx) => (
                   <th key={p.id} className="py-2.5 px-3 sm:px-4 font-bold">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-5 h-5 rounded bg-blue-600 text-white text-[10px] font-bold flex items-center justify-center shrink-0">
+                      <span className="w-5 h-5 rounded bg-blue-600 text-white text-xs font-bold flex items-center justify-center shrink-0">
                         {String.fromCharCode(65 + idx)}
                       </span>
                       <span className="text-xs font-bold text-slate-900 dark:text-slate-100 truncate max-w-[180px]">{p.name}</span>
@@ -245,9 +245,9 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
                     {/* Feature Label Column */}
                     <td className="py-3 px-3 sm:px-4 align-top">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs sm:text-[13px] font-semibold text-slate-900 dark:text-slate-100">{row.label}</span>
+                        <span className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-100">{row.label}</span>
                         {isPriorityRow && (
-                          <span className="text-[9px] font-bold text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-950/80 px-1.5 py-0.2 rounded border border-blue-200 dark:border-blue-800 uppercase">
+                          <span className="text-xs font-bold text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-950/80 px-1.5 py-0.2 rounded border border-blue-200 dark:border-blue-800 uppercase">
                             PRIORITY
                           </span>
                         )}
@@ -267,25 +267,25 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
                         >
                           <div>
                             {cell.is_unclear ? (
-                              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 border border-amber-300 dark:border-amber-800 font-bold text-[11px]">
+                              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 border border-amber-300 dark:border-amber-800 font-bold text-xs">
                                 <AlertTriangle className="w-3 h-3 text-amber-600 dark:text-amber-400 shrink-0" />
                                 <span>UNCLEAR</span>
                               </div>
                             ) : (
-                              <div className="font-medium text-slate-900 dark:text-slate-100 text-xs sm:text-[13px] leading-snug">
+                              <div className="font-medium text-slate-900 dark:text-slate-100 text-xs sm:text-sm leading-snug">
                                 {cell.value}
                               </div>
                             )}
 
                             {/* Evidence Citation Tag */}
                             {cell.evidence && (
-                              <div className="mt-1 flex items-center gap-1 text-[10px] text-slate-500 dark:text-slate-400">
+                              <div className="mt-1 flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
                                 {cell.evidence.page ? (
-                                  <span className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.2 rounded text-[10px] font-mono font-medium text-slate-700 dark:text-slate-300">
+                                  <span className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.2 rounded text-xs font-mono font-medium text-slate-700 dark:text-slate-300">
                                     Page {cell.evidence.page}
                                   </span>
                                 ) : (
-                                  <span className="text-amber-600 dark:text-amber-400 font-mono text-[10px] font-semibold">
+                                  <span className="text-amber-600 dark:text-amber-400 font-mono text-xs font-semibold">
                                     No Clause
                                   </span>
                                 )}
@@ -293,7 +293,7 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
                             )}
 
                             {/* Hover prompt */}
-                            <div className="text-[10px] text-blue-600 dark:text-blue-400 font-medium opacity-0 group-hover:opacity-100 transition mt-1 flex items-center gap-1">
+                            <div className="text-xs text-blue-600 dark:text-blue-400 font-medium opacity-0 group-hover:opacity-100 transition mt-1 flex items-center gap-1">
                               <FileSearch className="w-3 h-3" />
                               <span>Verify clause quote</span>
                             </div>
@@ -316,8 +316,8 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
             <Sparkles className="w-3.5 h-3.5" />
           </div>
           <div>
-            <h2 className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider">AI Factual Summary</h2>
-            <span className="text-[11px] text-slate-500 dark:text-slate-400">
+            <h2 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider">AI Factual Summary</h2>
+            <span className="text-xs text-slate-500 dark:text-slate-400">
               Strictly neutral, non-opinionated contract comparison.
             </span>
           </div>
@@ -326,16 +326,16 @@ export const ComparisonDashboard: React.FC<ComparisonDashboardProps> = ({
         <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#151d2f] border border-slate-200 dark:border-slate-800 space-y-2 text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-normal">
           {summary_points.map((pt, i) => (
             <div key={i} className="flex items-start gap-2">
-              <span className="font-bold text-blue-600 dark:text-blue-400 text-sm leading-none mt-0.5">•</span>
+              <span className="font-bold text-blue-600 dark:text-blue-400 text-sm leading-none mt-0.5">â€¢</span>
               <p>{pt}</p>
             </div>
           ))}
         </div>
 
         {/* Safety Disclaimer */}
-        <div className="mt-2.5 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[10px] text-slate-500 dark:text-slate-400">
+        <div className="mt-2.5 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-slate-500 dark:text-slate-400">
           <span>
-            Comparison tool for informational evaluation — not a licensed insurance solicitation.
+            Comparison tool for informational evaluation â€” not a licensed insurance solicitation.
           </span>
           <span className="font-semibold text-slate-700 dark:text-slate-400">PolicyLens Evidence Engine</span>
         </div>

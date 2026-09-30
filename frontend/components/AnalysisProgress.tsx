@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState, useRef } from "react";
 import {
@@ -176,14 +176,14 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
                 <span className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white font-mono">
                   {progressPercent}%
                 </span>
-                <span className="text-[8px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-tighter">
+                <span className="text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-tighter">
                   Audited
                 </span>
               </div>
             </div>
 
             <div>
-              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/60 text-blue-700 dark:text-blue-400 text-[10px] font-medium mb-0.5">
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/60 text-blue-700 dark:text-blue-400 text-xs font-medium mb-0.5">
                 <Sparkles className="w-3 h-3 text-blue-600 dark:text-blue-400 animate-pulse" />
                 <span>Zero-Hallucination Neural Extraction</span>
               </div>
@@ -198,11 +198,11 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
 
           {/* Quick Metrics Badges */}
           <div className="flex sm:flex-col items-center sm:items-end gap-1.5 shrink-0">
-            <div className="flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900/50 text-emerald-700 dark:text-emerald-400 text-[10px] sm:text-[11px] font-semibold">
+            <div className="flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900/50 text-emerald-700 dark:text-emerald-400 text-xs sm:text-xs font-semibold">
               <ShieldCheck className="w-3 h-3" />
               <span>100% Verbatim Grounding</span>
             </div>
-            <div className="flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 text-[10px] sm:text-[11px] font-medium">
+            <div className="flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 text-xs sm:text-xs font-medium">
               <Cpu className="w-3 h-3 text-blue-500" />
               <span>Scanning {policyCount} Documents</span>
             </div>
@@ -237,7 +237,7 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
                 <div className="flex items-center justify-between gap-1.5 mb-2">
                   <div className="flex items-center gap-1.5">
                     <div
-                      className={`w-6 h-6 rounded-md text-[11px] font-bold flex items-center justify-center transition-colors ${
+                      className={`w-6 h-6 rounded-md text-xs font-bold flex items-center justify-center transition-colors ${
                         isCompletedPolicy
                           ? "bg-emerald-600 text-white"
                           : isCurrentPolicy
@@ -248,7 +248,7 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
                       {letter}
                     </div>
                     <div className="leading-tight">
-                      <span className="text-[9px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider block">
+                      <span className="text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider block">
                         Contract {letter}
                       </span>
                       <h4 className="font-semibold text-xs text-neutral-900 dark:text-white truncate max-w-[130px] sm:max-w-[150px]">
@@ -258,17 +258,17 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
                   </div>
 
                   {isCompletedPolicy ? (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.5 rounded border border-emerald-200 dark:border-emerald-900/60">
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.5 rounded border border-emerald-200 dark:border-emerald-900/60">
                       <CheckCircle2 className="w-2.5 h-2.5" />
                       Grounded
                     </span>
                   ) : isCurrentPolicy ? (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-1.5 py-0.5 rounded border border-blue-200 dark:border-blue-900/60">
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-1.5 py-0.5 rounded border border-blue-200 dark:border-blue-900/60">
                       <Layers className="w-2.5 h-2.5 animate-spin" />
                       Auditing
                     </span>
                   ) : (
-                    <span className="text-[9px] font-medium text-neutral-400 dark:text-neutral-600">
+                    <span className="text-[10px] font-medium text-neutral-400 dark:text-neutral-600">
                       Queued
                     </span>
                   )}
@@ -285,7 +285,7 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
                 </div>
 
                 {/* Current Clause Badge */}
-                <div className="text-[10px] sm:text-[11px]">
+                <div className="text-xs sm:text-xs">
                   {isCompletedPolicy ? (
                     <div className="text-emerald-700 dark:text-emerald-400 flex items-center gap-1 font-medium">
                       <FileCheck className="w-3 h-3" />
@@ -315,12 +315,12 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
           <div className="px-3 py-1.5 bg-neutral-900/90 border-b border-neutral-800 flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <Terminal className="w-3 h-3 text-blue-400" />
-              <span className="text-[11px] font-mono font-medium text-neutral-300">
+              <span className="text-xs font-mono font-medium text-neutral-300">
                 Extraction Telemetry Stream
               </span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="inline-flex items-center gap-1 text-[9px] font-mono text-emerald-400">
+              <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-400">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 Live OCR Stream
               </span>
@@ -328,7 +328,7 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
           </div>
 
           {/* Terminal Content Feed */}
-          <div className="p-3 h-30 overflow-y-auto font-mono text-[10px] sm:text-[11px] text-neutral-300 space-y-1 scrollbar-thin">
+          <div className="p-3 h-30 overflow-y-auto font-mono text-xs sm:text-xs text-neutral-300 space-y-1 scrollbar-thin">
             {logs.map((log, idx) => {
               const isUnclear = log.includes("UNCLEAR");
               const isFinishedLog = log.includes("finalized") || log.includes("complete");
@@ -355,7 +355,7 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
         </div>
 
         {/* Bottom Rule Guarantee */}
-        <div className="mt-4 pt-3 border-t border-neutral-200/80 dark:border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-1.5 text-[11px] text-neutral-500 dark:text-neutral-400">
+        <div className="mt-4 pt-3 border-t border-neutral-200/80 dark:border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-1.5 text-xs text-neutral-500 dark:text-neutral-400">
           <div className="flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             <span className="font-semibold text-neutral-700 dark:text-neutral-300">
@@ -365,7 +365,7 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
           </div>
 
           {isFinished && (
-            <div className="font-bold text-blue-600 dark:text-blue-400 animate-pulse text-[11px]">
+            <div className="font-bold text-blue-600 dark:text-blue-400 animate-pulse text-xs">
               Opening Comparison Dashboard...
             </div>
           )}

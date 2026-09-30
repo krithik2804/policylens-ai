@@ -1,23 +1,23 @@
-import { jsPDF } from "jspdf";
+﻿import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import { CompareResponse, PolicyExtraction } from "@/types";
 
 /**
  * Sanitizes strings for jsPDF helvetica standard font.
- * Replaces Unicode currency symbols (₹), non-standard dashes, quotes, and bullets
+ * Replaces Unicode currency symbols (---), non-standard dashes, quotes, and bullets
  * that cause glyph corruption and text misalignments in PDF generation.
  */
 function cleanPdfText(text: any): string {
   if (text === null || text === undefined) return "";
   let str = String(text);
   // Replace Rupee symbol with standard Rs.
-  str = str.replace(/₹/g, "Rs. ");
+  str = str.replace(/---/g, "Rs. ");
   // Replace en-dash / em-dash with standard hyphen
-  str = str.replace(/[–—]/g, "-");
+  str = str.replace(/[------]/g, "-");
   // Replace smart quotes with standard quotes
   str = str.replace(/[\u201C\u201D]/g, '"').replace(/[\u2018\u2019]/g, "'");
   // Replace bullet points with standard hyphens
-  str = str.replace(/[•●▪]/g, "-");
+  str = str.replace(/[---------]/g, "-");
   // Normalize whitespace
   str = str.replace(/\r\n/g, "\n").replace(/\t/g, " ");
   return str.trim();
@@ -168,7 +168,7 @@ export function generateComparisonPdfReport(data: CompareResponse) {
 
   const rawParagraphs = cleanSummary
     .split("\n")
-    .map((p) => p.replace(/^[•\*\-]\s*/, "").trim())
+    .map((p) => p.replace(/^[---\*\-]\s*/, "").trim())
     .filter((p) => p.length > 0);
 
   doc.setFont("helvetica", "normal");
@@ -500,7 +500,7 @@ export function generateComparisonPdfReport(data: CompareResponse) {
       doc.setFont("helvetica", "normal");
       doc.setFontSize(6.8);
       doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
-      doc.text("PolicyLens AI • Official Insurance Policy Comparison Audit", margin, 8.5);
+      doc.text("PolicyLens AI --- Official Insurance Policy Comparison Audit", margin, 8.5);
       doc.text(`Report ID: ${reportId}`, pageWidth - margin - 28, 8.5);
 
       doc.setDrawColor(borderGray[0], borderGray[1], borderGray[2]);
@@ -517,7 +517,7 @@ export function generateComparisonPdfReport(data: CompareResponse) {
     doc.setFontSize(6.5);
     doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
     doc.text(
-      "PolicyLens AI • Zero-Hallucination Insurance Audit System • For consumer educational purposes. Not an official insurance solicitation.",
+      "PolicyLens AI --- Zero-Hallucination Insurance Audit System --- For consumer educational purposes. Not an official insurance solicitation.",
       margin,
       pageHeight - 6.5
     );

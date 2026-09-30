@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { PolicyExtraction } from "../types";
@@ -49,7 +49,7 @@ export const EvidenceModal: React.FC<EvidenceModalProps> = ({
               {isUnclear ? <AlertTriangle className="w-3.5 h-3.5" /> : <FileText className="w-3.5 h-3.5" />}
             </div>
             <div>
-              <span className="text-[9px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+              <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                 Source Clause Verification
               </span>
               <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">{fieldLabel}</h3>
@@ -68,12 +68,12 @@ export const EvidenceModal: React.FC<EvidenceModalProps> = ({
           {/* Policy Information Strip */}
           <div className="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-[#151d2f] border border-slate-200/80 dark:border-slate-800">
             <div>
-              <div className="text-[9px] text-slate-400 uppercase font-semibold tracking-wider">Document</div>
+              <div className="text-[10px] text-slate-400 uppercase font-semibold tracking-wider">Document</div>
               <div className="text-xs font-bold text-slate-900 dark:text-slate-100">{policy.name}</div>
-              <div className="text-[10px] text-slate-500 font-mono mt-0.5 truncate max-w-[200px]">{policy.filename}</div>
+              <div className="text-xs text-slate-500 font-mono mt-0.5 truncate max-w-[200px]">{policy.filename}</div>
             </div>
             <div className="text-right">
-              <div className="text-[9px] text-slate-400 uppercase font-semibold tracking-wider">Extracted Value</div>
+              <div className="text-[10px] text-slate-400 uppercase font-semibold tracking-wider">Extracted Value</div>
               <div
                 className={`text-xs font-bold px-2 py-0.5 rounded mt-0.5 inline-block ${
                   isUnclear
@@ -97,16 +97,16 @@ export const EvidenceModal: React.FC<EvidenceModalProps> = ({
                 <p className="text-xs font-semibold mb-1.5">
                   &ldquo;{reason}&rdquo;
                 </p>
-                <p className="text-[11px] text-amber-800/90 dark:text-amber-300/90 leading-relaxed font-normal">
+                <p className="text-xs text-amber-800/90 dark:text-amber-300/90 leading-relaxed font-normal">
                   PolicyLens AI systematically parsed all {policy.page_count} pages of this contract.
                   Unlike generic models that guess standard waiting periods, PolicyLens refuses to fabricate terms.
                   Because the insurer omitted an explicit clause, this field is strictly flagged as <strong className="underline font-semibold">UNCLEAR</strong>.
                 </p>
               </div>
 
-              <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#151d2f] border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-400 space-y-0.5">
-                <div className="font-semibold text-slate-900 dark:text-slate-100 text-[11px]">Recommended Consumer Action:</div>
-                <p className="text-[11px] font-normal text-slate-600 dark:text-slate-400">
+              <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#151d2f] border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 space-y-0.5">
+                <div className="font-semibold text-slate-900 dark:text-slate-100 text-xs">Recommended Consumer Action:</div>
+                <p className="text-xs font-normal text-slate-600 dark:text-slate-400">
                   Request an addendum or official prospectus clarification regarding {fieldLabel.toLowerCase()} before signing or paying premium.
                 </p>
               </div>
@@ -116,7 +116,7 @@ export const EvidenceModal: React.FC<EvidenceModalProps> = ({
             <div className="space-y-2.5">
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                     Verbatim Contract Extract
                   </span>
                   <div className="flex items-center gap-1 text-emerald-700 dark:text-emerald-400 font-bold text-xs">
@@ -131,7 +131,7 @@ export const EvidenceModal: React.FC<EvidenceModalProps> = ({
               </div>
 
               {section && (
-                <div className="flex items-center justify-between text-[11px] text-slate-500 px-1 font-normal">
+                <div className="flex items-center justify-between text-xs text-slate-500 px-1 font-normal">
                   <span>Contract Section:</span>
                   <span className="font-mono font-medium text-slate-700 dark:text-slate-300 truncate max-w-[240px]">{section}</span>
                 </div>

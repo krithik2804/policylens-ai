@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { PolicyExtraction } from "../types";
@@ -28,15 +28,15 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
         <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/80 dark:bg-[#151d2f]">
           <div>
             <div className="flex items-center gap-2 mb-0.5">
-              <span className="text-[9px] font-semibold text-blue-700 dark:text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-slate-800 px-2 py-0.5 rounded border border-blue-200 dark:border-slate-700">
+              <span className="text-[10px] font-semibold text-blue-700 dark:text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-slate-800 px-2 py-0.5 rounded border border-blue-200 dark:border-slate-700">
                 Policy Overview
               </span>
-              <span className="text-[10px] text-slate-400 font-mono truncate max-w-[200px]">
+              <span className="text-xs text-slate-400 font-mono truncate max-w-[200px]">
                 {policy.filename}
               </span>
             </div>
             <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">{policy.name}</h2>
-            <p className="text-[11px] text-slate-500 font-medium">{policy.insurer} • {policy.type}</p>
+            <p className="text-xs text-slate-500 font-medium">{policy.insurer} â€¢ {policy.type}</p>
           </div>
           <button
             onClick={onClose}
@@ -51,15 +51,15 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
           {/* Key Metrics Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             <div className="p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151d2f]">
-              <div className="text-[9px] font-semibold text-slate-400 uppercase">Coverage</div>
-              <div className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-slate-100 mt-0.5">{policy.coverage}</div>
-              <div className="text-[9px] text-slate-500 mt-0.5">Sum Insured</div>
+              <div className="text-[10px] font-semibold text-slate-400 uppercase">Coverage</div>
+              <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5">{policy.coverage}</div>
+              <div className="text-[10px] text-slate-500 mt-0.5">Sum Insured</div>
             </div>
 
             <div className="p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151d2f]">
-              <div className="text-[9px] font-semibold text-slate-400 uppercase">Annual Premium</div>
-              <div className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-slate-100 mt-0.5">{policy.premium}</div>
-              <div className="text-[9px] text-slate-500 mt-0.5">Estimated Cost</div>
+              <div className="text-[10px] font-semibold text-slate-400 uppercase">Annual Premium</div>
+              <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5">{policy.premium}</div>
+              <div className="text-[10px] text-slate-500 mt-0.5">Estimated Cost</div>
             </div>
 
             <div
@@ -69,24 +69,24 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
                   : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151d2f]"
               }`}
             >
-              <div className="text-[9px] font-semibold uppercase flex items-center justify-between">
+              <div className="text-[10px] font-semibold uppercase flex items-center justify-between">
                 <span>Waiting Period</span>
                 {isWaitingPeriodUnclear && <AlertTriangle className="w-3 h-3 text-amber-600" />}
               </div>
               <div
-                className={`text-xs sm:text-[13px] font-bold mt-0.5 ${
+                className={`text-xs sm:text-sm font-bold mt-0.5 ${
                   isWaitingPeriodUnclear ? "text-amber-800 dark:text-amber-400 font-mono" : "text-slate-900 dark:text-slate-100"
                 }`}
               >
                 {policy.waiting_period}
               </div>
-              <div className="text-[9px] text-slate-500 mt-0.5">Initial / PED</div>
+              <div className="text-[10px] text-slate-500 mt-0.5">Initial / PED</div>
             </div>
 
             <div className="p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#151d2f]">
-              <div className="text-[9px] font-semibold text-slate-400 uppercase">Deductible</div>
-              <div className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-slate-100 mt-0.5">{policy.deductible}</div>
-              <div className="text-[9px] text-slate-500 mt-0.5">Per Claim / Co-pay</div>
+              <div className="text-[10px] font-semibold text-slate-400 uppercase">Deductible</div>
+              <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5">{policy.deductible}</div>
+              <div className="text-[10px] text-slate-500 mt-0.5">Per Claim / Co-pay</div>
             </div>
           </div>
 
@@ -107,13 +107,13 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
                       <span>{exc.item}</span>
                       <button
                         onClick={() => onOpenPdf(policy.id, exc.page)}
-                        className="text-[10px] font-mono text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer"
+                        className="text-xs font-mono text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer"
                       >
                         <span>Page {exc.page}</span>
                         <BookOpen className="w-2.5 h-2.5" />
                       </button>
                     </div>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400 italic">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 italic">
                       &ldquo;{exc.quote}&rdquo;
                     </p>
                   </div>

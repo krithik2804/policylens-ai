@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useRef, useEffect } from "react";
 import { UploadCloud, CheckCircle2, AlertTriangle, X, Sparkles, ArrowRight, ArrowLeft, RefreshCw, FileX } from "lucide-react";
@@ -111,7 +111,7 @@ export const UploadPolicies: React.FC<UploadPoliciesProps> = ({
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Preferences</span>
         </button>
-        <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 tracking-wider uppercase block">
+        <span className="text-xs font-bold text-blue-600 dark:text-blue-400 tracking-wider uppercase block">
           Step 2 of 3
         </span>
         <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mt-0.5">
@@ -147,7 +147,7 @@ export const UploadPolicies: React.FC<UploadPoliciesProps> = ({
               <p className="text-xs text-red-700 dark:text-red-300 mt-0.5 leading-relaxed">
                 {errorMessage}
               </p>
-              <div className="mt-2 pt-1.5 border-t border-red-200/60 dark:border-red-900/40 text-[11px] text-red-600 dark:text-red-400 flex items-center gap-1.5">
+              <div className="mt-2 pt-1.5 border-t border-red-200/60 dark:border-red-900/40 text-xs text-red-600 dark:text-red-400 flex items-center gap-1.5">
                 <RefreshCw className="w-3 h-3" />
                 <span>Please select a valid health or motor insurance contract with readable text.</span>
               </div>
@@ -185,12 +185,12 @@ export const UploadPolicies: React.FC<UploadPoliciesProps> = ({
         <h3 className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-100 mb-0.5">
           Drag &amp; drop policy PDFs here, or <span className="text-blue-600 dark:text-blue-400 underline">browse</span>
         </h3>
-        <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-2 font-normal">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mb-2 font-normal">
           Accepts 2 to 3 official insurance policy PDFs (up to 25MB each).
         </p>
 
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-medium border border-slate-200 dark:border-slate-700">
-          <span>Min: 2 policies • Max: 3 policies</span>
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium border border-slate-200 dark:border-slate-700">
+          <span>Min: 2 policies â€¢ Max: 3 policies</span>
         </div>
       </div>
 
@@ -199,7 +199,7 @@ export const UploadPolicies: React.FC<UploadPoliciesProps> = ({
         <div className="flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300">
           <span>Staged Documents ({selectedFiles.length} / 3)</span>
           {selectedFiles.length < 2 && (
-            <span className="text-amber-600 dark:text-amber-400 font-medium text-[11px]">
+            <span className="text-amber-600 dark:text-amber-400 font-medium text-xs">
               Add {2 - selectedFiles.length} more to compare
             </span>
           )}
@@ -224,7 +224,7 @@ export const UploadPolicies: React.FC<UploadPoliciesProps> = ({
                   <div>
                     <div className="flex items-center gap-1.5">
                       <span className="font-semibold text-xs text-slate-900 dark:text-slate-100">{`Policy ${letter}`}</span>
-                      <span className="text-[10px] text-slate-400 font-mono">({formatSize(file.size)})</span>
+                      <span className="text-xs text-slate-400 font-mono">({formatSize(file.size)})</span>
                     </div>
                     <p className="text-xs text-slate-500 dark:text-slate-400 truncate max-w-[200px] sm:max-w-md font-normal">
                       {file.name}
@@ -233,7 +233,7 @@ export const UploadPolicies: React.FC<UploadPoliciesProps> = ({
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1 text-[10px] font-medium text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800/60">
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800/60">
                     <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                     <span>Ready</span>
                   </span>

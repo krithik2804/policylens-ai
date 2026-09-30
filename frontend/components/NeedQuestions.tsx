@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { UserProfile } from "../types";
@@ -22,7 +22,7 @@ export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
     initialProfile?.priorities || ["Coverage", "Waiting Period"]
   );
   const [budget, setBudget] = useState<string>(
-    initialProfile?.budget || "₹5,000–₹10,000"
+    initialProfile?.budget || "â‚¹5,000â€“â‚¹10,000"
   );
 
   const customerOptions = [
@@ -41,10 +41,10 @@ export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
   ];
 
   const budgetOptions = [
-    "Under ₹5,000",
-    "₹5,000–₹10,000",
-    "₹10,000–₹20,000",
-    "₹20,000+",
+    "Under â‚¹5,000",
+    "â‚¹5,000â€“â‚¹10,000",
+    "â‚¹10,000â€“â‚¹20,000",
+    "â‚¹20,000+",
   ];
 
   const togglePriority = (item: string) => {
@@ -76,7 +76,7 @@ export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Home</span>
         </button>
-        <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 tracking-wider uppercase block">
+        <span className="text-xs font-bold text-blue-600 dark:text-blue-400 tracking-wider uppercase block">
           Step 1 of 3
         </span>
         <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mt-0.5">
@@ -93,7 +93,7 @@ export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
           <label className="block text-xs font-semibold text-slate-900 dark:text-slate-100 mb-0.5 uppercase tracking-wider">
             1. Who is this policy for?
           </label>
-          <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-2">Select the primary beneficiary.</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">Select the primary beneficiary.</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {customerOptions.map((opt) => {
               const Icon = opt.icon;
@@ -115,7 +115,7 @@ export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
                   </div>
                   <div>
                     <div className="font-semibold text-xs text-slate-900 dark:text-slate-100">{opt.label}</div>
-                    <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">{opt.desc}</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{opt.desc}</div>
                   </div>
                 </button>
               );
@@ -128,7 +128,7 @@ export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
           <label className="block text-xs font-semibold text-slate-900 dark:text-slate-100 mb-0.5 uppercase tracking-wider">
             2. Your Priorities
           </label>
-          <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-2">Select all factors you want prioritized.</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">Select all factors you want prioritized.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {priorityOptions.map((opt) => {
               const isSelected = priorities.includes(opt.label);
@@ -144,7 +144,7 @@ export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
                 >
                   <div>
                     <div className="font-semibold text-xs text-slate-900 dark:text-slate-100">{opt.label}</div>
-                    <div className="text-[10px] text-slate-500 dark:text-slate-400">{opt.desc}</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400">{opt.desc}</div>
                   </div>
                   <div
                     className={`w-4 h-4 rounded border flex items-center justify-center transition ${
@@ -166,7 +166,7 @@ export const NeedQuestions: React.FC<NeedQuestionsProps> = ({
           <label className="block text-xs font-semibold text-slate-900 dark:text-slate-100 mb-0.5 uppercase tracking-wider">
             3. Target Annual Budget
           </label>
-          <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-2">Expected premium range per year.</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">Expected premium range per year.</p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {budgetOptions.map((b) => {

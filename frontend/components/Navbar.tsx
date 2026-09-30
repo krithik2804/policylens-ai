@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { Sparkles, BookOpen, Sun, Moon } from "lucide-react";
@@ -38,7 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="font-bold text-sm sm:text-base text-slate-900 dark:text-slate-100 tracking-tight">
               PolicyLens <span className="text-blue-600 dark:text-blue-400">AI</span>
             </span>
-            <span className="hidden sm:inline-block text-[9px] font-bold bg-blue-50 dark:bg-slate-800 text-blue-700 dark:text-blue-300 px-1.5 py-0.2 rounded border border-blue-200 dark:border-slate-700 uppercase tracking-wider">
+            <span className="hidden sm:inline-block text-[10px] font-bold bg-blue-50 dark:bg-slate-800 text-blue-700 dark:text-blue-300 px-1.5 py-0.2 rounded border border-blue-200 dark:border-slate-700 uppercase tracking-wider">
               Auditor
             </span>
           </div>
@@ -46,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         <div className="flex items-center gap-2 sm:gap-2.5">
           {/* Zero-hallucination trust indicator */}
-          <div className="hidden md:flex items-center gap-1.5 text-[11px] text-emerald-700 dark:text-emerald-300 bg-emerald-50/80 dark:bg-emerald-950/40 px-2.5 py-1 rounded-md border border-emerald-200 dark:border-emerald-800/60">
+          <div className="hidden md:flex items-center gap-1.5 text-xs text-emerald-700 dark:text-emerald-300 bg-emerald-50/80 dark:bg-emerald-950/40 px-2.5 py-1 rounded-md border border-emerald-200 dark:border-emerald-800/60">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
             <span className="font-medium">Zero-Hallucination Guard</span>
           </div>

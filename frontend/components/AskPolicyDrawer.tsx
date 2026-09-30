@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { PolicyExtraction, AskResponse } from "../types";
@@ -107,7 +107,7 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
           </div>
           <div>
             <h3 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100">Ask PolicyLens AI</h3>
-            <p className="text-[10px] text-slate-500 font-normal">Grounded policy Q&amp;A with citations</p>
+            <p className="text-xs text-slate-500 font-normal">Grounded policy Q&amp;A with citations</p>
           </div>
         </div>
         <button
@@ -120,7 +120,7 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
 
       {/* Policy Selector Pills */}
       <div className="px-4 py-2.5 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-[#111726]">
-        <div className="text-[9px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
+        <div className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
           Select Document
         </div>
         <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5">
@@ -138,7 +138,7 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
               >
                 <span className="truncate max-w-[120px]">{p.name.split(" ")[0]}</span>
                 {p.waiting_period === "UNCLEAR" && (
-                  <span className="text-[9px] bg-amber-400 text-black font-bold px-1 rounded">
+                  <span className="text-[10px] bg-amber-400 text-black font-bold px-1 rounded">
                     UNCLEAR
                   </span>
                 )}
@@ -168,8 +168,8 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
 
                 {/* Evidence citation pill for AI responses */}
                 {!isUser && m.evidenceQuote && (
-                  <div className="mt-2.5 pt-2 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300 space-y-1">
-                    <div className="flex items-center justify-between text-emerald-700 dark:text-emerald-400 font-semibold text-[10px]">
+                  <div className="mt-2.5 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 space-y-1">
+                    <div className="flex items-center justify-between text-emerald-700 dark:text-emerald-400 font-semibold text-xs">
                       <div className="flex items-center gap-1">
                         <CheckCircle2 className="w-3 h-3" />
                         <span>Source Verified</span>
@@ -184,7 +184,7 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
                         </button>
                       )}
                     </div>
-                    <div className="italic text-slate-500 dark:text-slate-400 font-serif bg-slate-50 dark:bg-[#111726] p-1.5 rounded border border-slate-200/80 dark:border-slate-800 text-[10px]">
+                    <div className="italic text-slate-500 dark:text-slate-400 font-serif bg-slate-50 dark:bg-[#111726] p-1.5 rounded border border-slate-200/80 dark:border-slate-800 text-xs">
                       &ldquo;{m.evidenceQuote}&rdquo;
                     </div>
                   </div>
@@ -192,7 +192,7 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
 
                 {/* Missing / Unclear tag in AI answer */}
                 {!isUser && m.found === false && (
-                  <div className="mt-2 p-2 rounded bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/80 text-amber-900 dark:text-amber-300 text-[10px] flex items-start gap-1.5 font-medium">
+                  <div className="mt-2 p-2 rounded bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/80 text-amber-900 dark:text-amber-300 text-xs flex items-start gap-1.5 font-medium">
                     <AlertTriangle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.2" />
                     <span>No guessed terms. Missing clauses are strictly reported as unfound.</span>
                   </div>
@@ -212,7 +212,7 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
 
       {/* Suggested Questions */}
       <div className="p-2.5 bg-white dark:bg-[#111726] border-t border-slate-100 dark:border-slate-800">
-        <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+        <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
           Suggestions
         </div>
         <div className="flex flex-wrap gap-1">
@@ -220,7 +220,7 @@ export const AskPolicyDrawer: React.FC<AskPolicyDrawerProps> = ({
             <button
               key={i}
               onClick={() => handleSend(sq)}
-              className="text-[10px] bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium px-2 py-0.5 rounded-full transition cursor-pointer"
+              className="text-xs bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium px-2 py-0.5 rounded-full transition cursor-pointer"
             >
               {sq}
             </button>
